@@ -14,6 +14,8 @@ load_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
 
 \item{saveDirectory}{The path to which your map data is saved. Default is the current working directory.}
 
+\item{download}{Download ASGS/ASGC data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.}
+
 \item{mapCompression}{The compression level of your map data. Default is 0.1 (10\% of original detail), which makes clear, detailed maps. Higher compression leads to greater map file size with (in most cases) little visual benefit.}
 
 \item{removeSourceFiles}{Remove the original ABS shapefile data after compression. Defaults to TRUE.}
@@ -25,5 +27,7 @@ A \code{sf} object containing statistical area name, number and geometry; the si
 Download and load ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.
 }
 \examples{
+\dontrun{
 sa4_sf <- load_absmaps("sa4", "myfile/data")
+}
 }

@@ -3,6 +3,10 @@
 \name{download_absmaps}
 \alias{download_absmaps}
 \title{Download ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.}
+\usage{
+download_absmaps(statisticalArea, year = 2016, saveDirectory = "..",
+  mapCompression = 0.1, removeSourceFiles = TRUE)
+}
 \arguments{
 \item{statisticalArea}{The statistical area you want to load. One or more (combined with \code{c("","","etc")}) of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".}
 
@@ -18,6 +22,8 @@
 Download ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.
 }
 \examples{
+\dontrun{
 download_absmaps("sa3", "myfile/data")
 download_absmaps(c("sa3", "gcc"), "myfile/data")
+}
 }

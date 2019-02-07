@@ -6,8 +6,11 @@
 #' @param mapCompression The compression level of your map data. Default is 0.1 (10\% of original detail), which makes clear, detailed maps. Higher compression leads to greater map file size with (in most cases) little visual benefit.
 #' @param removeSourceFiles Remove the original ABS shapefile data after compression. Defaults to TRUE.
 #' @examples
+#' \dontrun{
 #' download_absmaps("sa3", "myfile/data")
 #' download_absmaps(c("sa3", "gcc"), "myfile/data")
+#' }
+#' @export
 
 
 # library(readr)
@@ -18,8 +21,7 @@ download_absmaps <- function(statisticalArea,
                              year = 2016,
                              saveDirectory = "..",  # change when package is built
                              mapCompression = .1, 
-                             removeSourceFiles = TRUE,
-                             ...) {
+                             removeSourceFiles = TRUE) {
   
   # Check if there is internet connection
   if(!curl::has_internet()) stop("Oop -- you are not connected to the internet to download ABS map data.")
@@ -80,11 +82,11 @@ get_absmaps_and_save <- function(x) {
     
     message(paste0("Downloading ", x, year, " data from abs.gov.au"))
 
-    download.file(get(paste0(x, year, "_url")),
-                  paste0(saveDirectory, "/", x, year, ".zip"),
-                  "auto")
+    utils::download.file(get(paste0(x, year, "_url")),
+                         paste0(saveDirectory, "/", x, year, ".zip"),
+                         "auto")
     
-    unzip(paste0(saveDirectory, "/", x, year, ".zip"), exdir = paste0(saveDirectory, "/", x, year))
+    utils::unzip(paste0(saveDirectory, "/", x, year, ".zip"), exdir = paste0(saveDirectory, "/", x, year))
 
     if (removeSourceFiles) file.remove(paste0(saveDirectory, "/", x, year, ".zip"))
 
@@ -135,7 +137,7 @@ get_absmaps_and_save <- function(x) {
 
     message(paste0("Writing ", x, year, " shapefile to ", data_loc_sa))
 
-    write_rds(shape, data_loc_sa)
+    readr::write_rds(shape, data_loc_sa)
 
     message("Done")
 
@@ -163,5 +165,3 @@ get_absmaps_and_save <- function(x) {
   if (state) get_absmaps_and_save("state")
   
 }
-
-

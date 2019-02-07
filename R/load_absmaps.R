@@ -1,10 +1,14 @@
 #' Download and load ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.
 #' @name load_absmaps
 #' @param statisticalArea The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".
+#' @param download Download ASGS/ASGC data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.
 #' @inheritParams download_absmaps
 #' @return A \code{sf} object containing statistical area name, number and geometry; the size of the area; and higher-level statistical areas (eg the state and gcc of an sa2).
 #' @examples
+#' \dontrun{
 #' sa4_sf <- load_absmaps("sa4", "myfile/data")
+#' }
+#' @export
 
 load_absmaps <- function(statisticalArea,
                          year = 2016,
@@ -24,11 +28,8 @@ if (download) {
 
 path <- paste0(saveDirectory, "/absmaps")
 
-read_rds(paste0(path, "/",
+readr::read_rds(paste0(path, "/",
                 statisticalArea, year, "/",
                 statisticalArea, year, ".rds"))
 
 }
-
-devtools::document()
-
