@@ -4,7 +4,7 @@
 \alias{download_absmaps}
 \title{Download ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.}
 \usage{
-download_absmaps(statisticalArea, year = 2016, saveDirectory = "..",
+download_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
   mapCompression = 0.1, removeSourceFiles = TRUE)
 }
 \arguments{
