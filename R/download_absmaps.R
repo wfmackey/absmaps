@@ -132,10 +132,11 @@ download_absmaps <- function(statisticalArea,
     }
 
 
-    # 2011 uses albers_sqm instead of albers_sqkm
-    if (year == 2011 && x != "ra") {
+    # SOME 2011 use albers_sqm instead of albers_sqkm
+    if (sum(grepl("sqm", names(shape))) > 0) {
       message("Converting albers sqm to sqkm for consistency with 2016 files")
-      shape$albers_sqm <- shape$albers_sqkm * 1e-6
+      shape$albers_sqm <- shape$albers_sqm * 1e-6
+      names(shape) <- gsub("sqm", "sqkm", names(shape))
     }
 
 
