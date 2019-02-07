@@ -19,7 +19,7 @@
 
 download_absmaps <- function(statisticalArea,
                              year = 2016,
-                             saveDirectory = "..",  # change when package is built
+                             saveDirectory = ".",  # change when package is built
                              mapCompression = .1, 
                              removeSourceFiles = TRUE) {
   
