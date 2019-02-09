@@ -13,15 +13,16 @@ library(dplyr)
 
 mapdata <- load_absmaps("sa4", year = 2016)
 
-head(mapdata)
 
+## ------------------------------------------------------------------------
+head(mapdata)
 
 ## ------------------------------------------------------------------------
 
 mapdata %>% 
-  filter(state == "Victoria") %>% 
+  filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
-  geom_sf(aes(geometry = geometry,
+  geom_sf(aes(geometry = geometry,  # use the geometry variable
               fill = areasqkm),     # fill by area size
           lwd = 0,                  # remove borders
           show.legend = FALSE) +    # remove legend
@@ -29,11 +30,4 @@ mapdata %>%
   coord_sf(datum = NA)              # fixes a gridline bug in theme_void()
 
 
-
-## ---- fig.show='hold'----------------------------------------------------
-plot(1:10)
-plot(10:1)
-
-## ---- echo=FALSE, results='asis'-----------------------------------------
-knitr::kable(head(mtcars, 10))
 

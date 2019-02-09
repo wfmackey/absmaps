@@ -143,9 +143,15 @@ download_absmaps <- function(statisticalArea,
     shape <- dplyr::mutate_at(shape, dplyr::vars(dplyr::matches("[^g][^c][^c]\\code")), as.numeric)
 
 
+    # Add centroids
+    shape <- cbind(shape, sf::st_coordinates(sf::st_centroid(shape))) %>%
+             dplyr::rename(cent_lat = X,
+                           cent_long = Y)
+
+    # Write data
     data_loc_sa <- paste0(data_loc_sa, "/", x, year, ".rds")
 
-    message(paste0("Writing ", x, year, " shapefile to ", data_loc_sa))
+    message(paste0("Writing ", x, year, " sf object to ", data_loc_sa))
 
     readr::write_rds(shape, data_loc_sa)
 
