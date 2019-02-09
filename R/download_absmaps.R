@@ -144,9 +144,11 @@ download_absmaps <- function(statisticalArea,
 
 
     # Add centroids
+    suppressWarnings(
     shape <- cbind(shape, sf::st_coordinates(sf::st_centroid(shape))) %>%
              dplyr::rename(cent_lat = X,
                            cent_long = Y)
+    )
 
     # Write data
     data_loc_sa <- paste0(data_loc_sa, "/", x, year, ".rds")

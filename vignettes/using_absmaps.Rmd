@@ -33,15 +33,20 @@ Before we get into the 'what problem is this package solving' details, let's loo
 
 The function `load_abs`, with `download = TRUE` (the default), will download, compress, convert and load the spatial data you request. The output is an `sf` object that can be joined to a standard data.frame or tibble:
 
-```{r}
+```{r, eval=FALSE}
 library(absmaps)
-library(ggplot2)
-library(dplyr)
-
 
 mapdata <- load_absmaps("sa4", year = 2016)
 
 ```
+
+```{r, include=FALSE}
+library(absmaps)
+
+mapdata <- load_absmaps("sa4", year = 2016, download = FALSE)
+
+```
+
 
 The `sf` object contains one observation per area (in this example, one observation per `sa4`). It stores the geometry information in the `geometry` variable, which is a list describing the area's polygon.
 
@@ -52,7 +57,7 @@ head(mapdata)
 We do all this so we can create maps. And from there, plotting a map via `ggplot` and `geom_sf` is simple:
 
 ```{r}
-
+map <- 
 mapdata %>% 
   filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
@@ -63,7 +68,7 @@ mapdata %>%
   theme_void() +                    # clears other plot elements
   coord_sf(datum = NA)              # fixes a gridline bug in theme_void()
 
-
+map
 ```
 
 ## Joining with actual data
