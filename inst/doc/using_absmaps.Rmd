@@ -1,0 +1,119 @@
+---
+title: "Using the absmaps package"
+author: "Will Mackey"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the absmaps package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+```
+
+
+The `absmaps` package does four things to simplify the process of mapping Australian data:
+
+1. **downloads** particular spatial data (`maps`) from the Australian Bureau of Statistics (`abs`);
+    * This presently includes `sa1`, `sa2`, `sa3`, `sa4`, `gcc`, `ra` and `state` ASGS data from 2011 and 2016, with more to be included with time.
+1. **compresses** the original 'shapefile' data to something more manageable, without losing important detail;
+1. **converts** the shapefile data to an `sf` (simple feature) object;
+1. **saves** and **loads** the resulting `sf` object for easy use with `dplyr` and `ggplot`.
+
+Before we get into the 'what problem is this package solving' details, let's look at some examples so that you can copy-paste into your own console and replicate out-of-the-box. 
+
+## Show me how to map ABS data
+
+The function `load_abs`, with `download = TRUE` (the default), will download, compress, convert and load the spatial data you request. The output is an `sf` object that can be joined to a standard data.frame or tibble:
+
+```{r}
+library(absmaps)
+library(ggplot2)
+library(dplyr)
+
+
+mapdata <- load_absmaps("sa4", year = 2016)
+
+head(mapdata)
+
+```
+
+From there, plotting a map mapping via `ggplot` and `geom_sf` is simple:
+
+```{r}
+
+mapdata %>% 
+  filter(state == "Victoria") %>% 
+  ggplot() +
+  geom_sf(aes(geometry = geometry,
+              fill = areasqkm),     # fill by area size
+          lwd = 0,                  # remove borders
+          show.legend = FALSE) +    # remove legend
+  theme_void() +                    # clears other plot elements
+  coord_sf(datum = NA)              # fixes a gridline bug in theme_void()
+
+
+```
+
+And, most importantly
+
+## How-and-why it works
+
+
+
+
+## Bin
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))

@@ -12,7 +12,9 @@ Imports:
     readr,
     sf,
     rmapshaper,
-    curl
+    curl,
+    dplyr,
+    ggplot2 (>= 3.1)
 Suggests:
 	knitr, 
 	rmarkdown,
