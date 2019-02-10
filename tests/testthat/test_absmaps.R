@@ -28,6 +28,7 @@ test_that("Can we load multiple absmaps years data",{
 
 })
 
+
 test_that("Can we load multiple absmaps areas data",{
 
   load_absmaps(statisticalArea = c("sa4", "gcc"),
@@ -40,6 +41,20 @@ test_that("Can we load multiple absmaps areas data",{
 
 })
 
+test_that("Can load data and manipulate it",{
+
+  load_absmaps(statisticalArea = "gcc",
+               year = 2016,
+               saveDirectory = path,
+               download = F)
+
+  testdata <-
+  gcc2016 %>%
+    rename(hello = state)
+
+  expect_is(testdata, "sf")
+
+})
 
 
 # Second test takes longer so do later

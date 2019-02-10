@@ -4,3 +4,4 @@
 ^testfile.R
 ^.*\tests$
 ^.*\absmaps$
+^\.travis\.yml$
