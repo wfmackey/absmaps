@@ -4,7 +4,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  library(absmaps)

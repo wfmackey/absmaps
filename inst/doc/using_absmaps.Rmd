@@ -15,7 +15,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+
 ```
 
 
@@ -169,6 +172,7 @@ Getting the right `object` is not technically difficult, but requires research i
 
 For me, at least, finding the correct information and developing the best set of steps was a little bit interesting but mostly tedious and annoying. The `absmaps` package does this for you so you can spend more time making maps, and less time on Stack Overflow, the ABS website, and [lovely-people's kind-of-confusing blogs](https://www.neonscience.org/dc-open-shapefiles-r).
 
+
 ## How does this package do-the-things-it-does
 
 The `absmaps` package uses four key functions to do-the-things-it-does:
@@ -178,6 +182,6 @@ The `absmaps` package uses four key functions to do-the-things-it-does:
 *  `rmapshaper::ms_simplify` to nicely compress the `sf` object.
 *  `readr::write_rds` to write, and `readr::read_rds` to read our nice `sf` objects.
 
-There are a bunch of other fiddley-things on top of that, but those four steps are the 'workhorse' functions.
+There are a bunch of other fiddley-things on top of that, but those four steps are the 'workhorse' functions. A big thanks to people who built them.
 
 If you're interested, check out `load_absmaps.R` code in the `R/` file. And, of course, if you have a suggestion to improve, please do let me know via an issue at https://github.com/wfmackey/absmaps.
