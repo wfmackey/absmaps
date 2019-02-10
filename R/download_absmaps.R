@@ -47,27 +47,30 @@ download_absmaps <- function(statisticalArea,
   # Tidy save directory
   saveDirectory <- gsub("\\/$", "", saveDirectory)
 
-  # Set all of FALSE
-  sa1 = FALSE
-  sa2 = FALSE
-  sa3 = FALSE
-  sa4 = FALSE
-  gcc = FALSE
-  state = FALSE
-  ra = FALSE
+  # # Set all of FALSE
+  # sa1 = FALSE
+  # sa2 = FALSE
+  # sa3 = FALSE
+  # sa4 = FALSE
+  # gcc = FALSE
+  # state = FALSE
+  # ra = FALSE
+  #
+  # # Set requested areas to TRUE:
+  # if (sum(grepl("sa1", statisticalArea)) > 0)  sa1 = TRUE
+  # if (sum(grepl("sa2", statisticalArea)) > 0)  sa2 = TRUE
+  # if (sum(grepl("sa3", statisticalArea)) > 0)  sa3 = TRUE
+  # if (sum(grepl("sa4", statisticalArea)) > 0)  sa4 = TRUE
+  # if (sum(grepl("gcc", statisticalArea)) > 0)  gcc = TRUE
+  # if (sum(grepl("state", statisticalArea)) > 0)  state = TRUE
+  # if (sum(grepl("ra", statisticalArea)) > 0)   ra = TRUE
 
-  # Set requested areas to TRUE:
-  if (sum(grepl("sa1", statisticalArea)) > 0)  sa1 = TRUE
-  if (sum(grepl("sa2", statisticalArea)) > 0)  sa2 = TRUE
-  if (sum(grepl("sa3", statisticalArea)) > 0)  sa3 = TRUE
-  if (sum(grepl("sa4", statisticalArea)) > 0)  sa4 = TRUE
-  if (sum(grepl("gcc", statisticalArea)) > 0)  gcc = TRUE
-  if (sum(grepl("state", statisticalArea)) > 0)  state = TRUE
-  if (sum(grepl("ra", statisticalArea)) > 0)   ra = TRUE
+  if (sum(grepl("sa1", statisticalArea)) > 0) {
+    warning("Note that the compression of the SA1 file will take about 10 minutes.")
+  }
 
-  if (sa1) warning("Note that the compression of the SA1 file will take about 10 minutes.")
 
-  get_absmaps_and_save <- function(x) {
+  get_absmaps_and_save <- function(x, year) {
 
     # URLs for ABS shapefile data
     sa12016_url <-   "https://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055001_sa1_2016_aust_shape.zip&1270.0.55.001&Data%20Cubes&6F308688D810CEF3CA257FED0013C62D&0&July%202016&12.07.2016&Latest"
@@ -170,18 +173,9 @@ download_absmaps <- function(statisticalArea,
 
   }
 
-  if (sa1) get_absmaps_and_save("sa1")
-
-  if (sa2) get_absmaps_and_save("sa2")
-
-  if (sa3) get_absmaps_and_save("sa3")
-
-  if (sa4) get_absmaps_and_save("sa4")
-
-  if (gcc) get_absmaps_and_save("gcc")
-
-  if (state) get_absmaps_and_save("state")
-
-  if (ra) get_absmaps_and_save("ra")
+  # Apply get_absmaps_and_save to each sa and year
+  purrr::map(statisticalArea,
+             year,
+             .f = get_absmaps_and_save)
 
 }
