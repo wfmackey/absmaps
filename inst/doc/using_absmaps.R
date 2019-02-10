@@ -80,15 +80,16 @@ map
 ## ------------------------------------------------------------------------
 map <- 
 ue_data %>% 
-  filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
+  filter(gcc == "Greater Melbourne") %>% # still looking at Melbourne
   ggplot() +
-  geom_sf(aes(geometry = geometry)) +  # use the geometry variable
+  geom_sf(aes(geometry = geometry),      # use the geometry variable
+          lwd = 0) +                     # remove borders
   geom_point(aes(cent_lat, 
                  cent_long,
-                 size = ue_pc,
                  colour = ue_pc)) +
-  theme_void() +                     # clears other plot elements
-  coord_sf(datum = NA)               # fixes a gridline bug in theme_void()
+  scale_size_continuous(limits = c(.1, 10)) +
+  theme_void() +                         # clears other plot elements
+  coord_sf(datum = NA)                   # fixes a gridline bug in theme_void()
 
 map
 

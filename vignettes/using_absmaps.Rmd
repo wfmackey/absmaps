@@ -15,7 +15,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+
 ```
 
 
@@ -138,15 +141,16 @@ Or we could show this as points (with the underlyfing spatial data included for 
 ```{r}
 map <- 
 ue_data %>% 
-  filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
+  filter(gcc == "Greater Melbourne") %>% # still looking at Melbourne
   ggplot() +
-  geom_sf(aes(geometry = geometry)) +  # use the geometry variable
+  geom_sf(aes(geometry = geometry),      # use the geometry variable
+          lwd = 0) +                     # remove borders
   geom_point(aes(cent_lat, 
                  cent_long,
-                 size = ue_pc,
                  colour = ue_pc)) +
-  theme_void() +                     # clears other plot elements
-  coord_sf(datum = NA)               # fixes a gridline bug in theme_void()
+  scale_size_continuous(limits = c(.1, 10)) +
+  theme_void() +                         # clears other plot elements
+  coord_sf(datum = NA)                   # fixes a gridline bug in theme_void()
 
 map
 ```
@@ -155,7 +159,8 @@ map
 
 ## Why does this package exist?
 
-The motivation for this package is that maps are cool and fun and are, sometimes, the best way to communicate data. And making maps is `R` with `ggplot` is relatively easy _when you have the right `object`_. 
+The motivation for this package is that maps are cool and fun and are, sometimes, the best way to communicate data.
+And making maps is `R` with `ggplot` is relatively easy _when you have the right `object`_. 
 
 Getting the right `object` is not technically difficult, but requires research into the best-thing-to-do at each of the following steps:
 
@@ -165,11 +170,18 @@ Getting the right `object` is not technically difficult, but requires research i
 *  Clean up any inconsistencies and apply consistent variable naming/values across areas and years.
 *  Find an appropriate compression function and level to optimise output.
 
-The `absmaps` package does this for you so you can spend more time making maps, and less time on Stack Overflow.
+For me, at least, finding the correct information and developing the best set of steps was a little bit interesting but mostly tedious and annoying. The `absmaps` package does this for you so you can spend more time making maps, and less time on Stack Overflow, the ABS website, and [lovely-people's kind-of-confusing blogs](https://www.neonscience.org/dc-open-shapefiles-r).
 
-## How does this package do the things it does
 
-The `absmaps` package uses the following functions to do-the-things-it-does:
+## How does this package do-the-things-it-does
 
-* 
+The `absmaps` package uses four key functions to do-the-things-it-does:
 
+*  `utils::download.file` to download shapefile data from the ABS.
+*  `sf::st_read` to read the shapefile into an `sf` object.
+*  `rmapshaper::ms_simplify` to nicely compress the `sf` object.
+*  `readr::write_rds` to write, and `readr::read_rds` to read our nice `sf` objects.
+
+There are a bunch of other fiddley-things on top of that, but those four steps are the 'workhorse' functions. A big thanks to people who built them.
+
+If you're interested, check out `load_absmaps.R` code in the `R/` file. And, of course, if you have a suggestion to improve, please do let me know via an issue at https://github.com/wfmackey/absmaps.
