@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library(magrittr)
-
+library(tidyverse)
 ```
 
 
@@ -33,19 +32,20 @@ Before we get into the 'what problem is this package solving' details, let's loo
 
 ## Just show me how to make a map with this package
 
-The function `load_abs`, with `download = TRUE` (the default), will download, compress, convert and load the spatial data you request. The output is an `sf` object that can be joined to a standard data.frame or tibble and can be used with `dplyr` functions.
+The function `load_abs`, with `download = TRUE` (the default), will download, compress, convert and load the spatial data you request. The resulting `sf` object will be saved to your global environment to use. It can be joined to a standard data.frame or tibble and can be used with `dplyr` functions.
 
 ```{r, eval=FALSE}
 library(absmaps)
 
-mapdata <- load_absmaps("sa4", year = 2016)
+load_absmaps("sa4", year = 2016, download = TRUE)
 
 ```
 
 ```{r, include=FALSE}
 library(absmaps)
 
-mapdata <- load_absmaps("sa4", year = 2016, download = FALSE)
+load_absmaps("sa4", year = 2016, download = FALSE)
+
 
 ```
 
@@ -53,14 +53,14 @@ mapdata <- load_absmaps("sa4", year = 2016, download = FALSE)
 The `sf` object contains one observation per area (in this example, one observation per `sa4`). It stores the geometry information in the `geometry` variable, which is a list describing the area's polygon.
 
 ```{r}
-head(mapdata)
+head(sa42016)
 ```
 
 We do all this so we can create maps. And from there, plotting a map via `ggplot` and `geom_sf` is simple.
 
 ```{r}
 map <- 
-mapdata %>% 
+sa42016 %>% 
   filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry))  # use the geometry variable
@@ -72,7 +72,7 @@ The `load_absmaps` package also calculates the centorids of each area, and we ca
 
 ```{r}
 map <- 
-mapdata %>% 
+sa42016 %>% 
   filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry)) +   # use the geometry variable
@@ -85,7 +85,7 @@ Cool. But this all looks a bit ugly, and we can clear it up using `ggplot` tweak
 
 ```{r}
 map <- 
-mapdata %>% 
+sa42016 %>% 
   filter(gcc == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry,  # use the geometry variable
@@ -113,8 +113,8 @@ For example: we have a simple dataset of the unemployment rate in each `sa4` in 
 # Read data in
 ue_data <- read_csv("data/ue_data.csv")
 
-# This data contains a variable of sa4 that can be joined to the mapdata set:
-ue_data <- ue_data %>% left_join(mapdata)
+# This data contains a variable of sa4 that can be joined to the sa42016 set:
+ue_data <- ue_data %>% left_join(sa42016)
 ```
 
 Now that we have a tidy dataset with 1) the unemployment data we want to plot, and 2) the geometry of the areas, we can plot unemployment rates by area:

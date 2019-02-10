@@ -26,10 +26,28 @@ if (download) {
                    removeSourceFiles = removeSourceFiles)
 }
 
-path <- paste0(saveDirectory, "/absmaps")
 
-readr::read_rds(paste0(path, "/",
-                statisticalArea, year, "/",
-                statisticalArea, year, ".rds"))
+
+  read_absmaps <- function(statisticalArea, year) {
+
+    this_message <- paste0("Reading your ", statisticalArea,
+                           year, " sf object")
+
+    print(this_message)
+
+    path <- paste0(saveDirectory,
+                   "/absmaps/",
+                    statisticalArea, year, "/",
+                    statisticalArea, year, ".rds")
+
+    assign(paste0(statisticalArea, year),
+           readr::read_rds(path),
+           envir = .GlobalEnv)
+
+  }
+
+  paths <- purrr::map2(statisticalArea,
+                       year,
+                       .f = read_absmaps)
 
 }

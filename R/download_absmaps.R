@@ -1,10 +1,29 @@
-#' Download ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.
+#' Download ABS ASGS and/or ASGC shapefile data, compress and save
+#' as an \code{sf} object.
+#'
 #' @name download_absmaps
-#' @param statisticalArea The statistical area you want to load. One or more (combined with \code{c("","","etc")}) of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".
-#' @param year The year of the ASGS/ASGC data. Defaults to 2016, but 2011 will be useful for older data.
-#' @param saveDirectory The path to which your map data is saved. Default is the current working directory.
-#' @param mapCompression The compression level of your map data. Default is 0.1 (10\% of original detail), which makes clear, detailed maps. Higher compression leads to greater map file size with (in most cases) little visual benefit.
-#' @param removeSourceFiles Remove the original ABS shapefile data after compression. Defaults to TRUE.
+#' @param statisticalArea The statistical area you want to load. One or more
+#' (combined with \code{c("","","etc")}) of: "sa1", "sa2, "sa3", "sa4", "gcc",
+#'  "state".
+#' @param year The year of the ASGS/ASGC data. Defaults to 2016, but 2011 will
+#' be useful for older data.
+#' @param saveDirectory The path to which your map data is saved. Default is
+#' the current working directory.
+#' @param mapCompression The compression level of your map data. Default is
+#' 0.1 (10\% of original detail), which makes clear, detailed maps. Higher
+#' compression leads to greater map file size with (in most cases) little
+#' visual benefit.
+#' @param removeSourceFiles Remove the original ABS shapefile data after
+#' compression. Defaults to TRUE.
+#'
+#' @importFrom tibble tibble
+#' @importFrom dplyr filter mutate_if mutate_at vars matches rename "%>%"
+#' @importFrom readr write_rds
+#' @importFrom curl has_internet
+#' @importFrom utils download.file unzip
+#' @importFrom sf st_read st_coordinates st_centroid
+#' @importFrom rmapshaper ms_simplify
+#'
 #' @examples
 #' \dontrun{
 #' download_absmaps("sa3", "myfile/data")
@@ -47,24 +66,7 @@ download_absmaps <- function(statisticalArea,
   # Tidy save directory
   saveDirectory <- gsub("\\/$", "", saveDirectory)
 
-  # # Set all of FALSE
-  # sa1 = FALSE
-  # sa2 = FALSE
-  # sa3 = FALSE
-  # sa4 = FALSE
-  # gcc = FALSE
-  # state = FALSE
-  # ra = FALSE
-  #
-  # # Set requested areas to TRUE:
-  # if (sum(grepl("sa1", statisticalArea)) > 0)  sa1 = TRUE
-  # if (sum(grepl("sa2", statisticalArea)) > 0)  sa2 = TRUE
-  # if (sum(grepl("sa3", statisticalArea)) > 0)  sa3 = TRUE
-  # if (sum(grepl("sa4", statisticalArea)) > 0)  sa4 = TRUE
-  # if (sum(grepl("gcc", statisticalArea)) > 0)  gcc = TRUE
-  # if (sum(grepl("state", statisticalArea)) > 0)  state = TRUE
-  # if (sum(grepl("ra", statisticalArea)) > 0)   ra = TRUE
-
+  # Warn of compression time if downloading SA1
   if (sum(grepl("sa1", statisticalArea)) > 0) {
     warning("Note that the compression of the SA1 file will take about 10 minutes.")
   }
@@ -148,10 +150,13 @@ download_absmaps <- function(statisticalArea,
 
     # Add centroids
     suppressWarnings(
-    shape <- cbind(shape, sf::st_coordinates(sf::st_centroid(shape))) %>%
-             dplyr::rename(cent_lat = X,
-                           cent_long = Y)
+    shape <- cbind(shape, sf::st_coordinates(sf::st_centroid(shape)))
     )
+
+    shape <- dplyr::rename(shape,
+                           cent_lat = X,
+                           cent_long = Y)
+
 
     # Write data
     data_loc_sa <- paste0(data_loc_sa, "/", x, year, ".rds")
@@ -174,7 +179,7 @@ download_absmaps <- function(statisticalArea,
   }
 
   # Apply get_absmaps_and_save to each sa and year
-  purrr::map(statisticalArea,
+  purrr::map2(statisticalArea,
              year,
              .f = get_absmaps_and_save)
 
