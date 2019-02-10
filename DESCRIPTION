@@ -14,7 +14,8 @@ Imports:
     rmapshaper,
     curl,
     dplyr,
-    ggplot2 (>= 3.1)
+    ggplot2 (>= 3.1),
+    magrittr
 Suggests:
 	knitr, 
 	rmarkdown,

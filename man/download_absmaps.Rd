@@ -8,15 +8,23 @@ download_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
   mapCompression = 0.1, removeSourceFiles = TRUE)
 }
 \arguments{
-\item{statisticalArea}{The statistical area you want to load. One or more (combined with \code{c("","","etc")}) of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".}
+\item{statisticalArea}{The statistical area you want to load.
+One or more (combined with \code{c("","","etc")}) of: "sa1",
+"sa2, "sa3", "sa4", "gcc", "state".}
 
-\item{year}{The year of the ASGS/ASGC data. Defaults to 2016, but 2011 will be useful for older data.}
+\item{year}{The year of the ASGS/ASGC data. Defaults to 2016, but 2011
+will be useful for older data.}
 
-\item{saveDirectory}{The path to which your map data is saved. Default is the current working directory.}
+\item{saveDirectory}{The path to which your map data is saved. Default
+is the current working directory.}
 
-\item{mapCompression}{The compression level of your map data. Default is 0.1 (10\% of original detail), which makes clear, detailed maps. Higher compression leads to greater map file size with (in most cases) little visual benefit.}
+\item{mapCompression}{The compression level of your map data. Default
+is 0.1 (10\% of original detail), which makes clear, detailed maps.
+Higher compression leads to greater map file size with (in most cases)
+little visual benefit.}
 
-\item{removeSourceFiles}{Remove the original ABS shapefile data after compression. Defaults to TRUE.}
+\item{removeSourceFiles}{Remove the original ABS shapefile data after
+compression. Defaults to TRUE.}
 }
 \description{
 Download ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.
