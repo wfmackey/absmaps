@@ -46,8 +46,8 @@ if (download) {
 
   }
 
-  paths <- purrr::map2(statisticalArea,
-                       year,
-                       .f = read_absmaps)
+  purrr::map2(statisticalArea,
+              year,
+              .f = read_absmaps)
 
 }

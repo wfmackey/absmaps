@@ -3,3 +3,4 @@
 ^README.Rmd
 ^testfile.R
 ^.*\tests$
+^.*\absmaps$

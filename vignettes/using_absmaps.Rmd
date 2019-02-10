@@ -46,7 +46,6 @@ library(absmaps)
 
 load_absmaps("sa4", year = 2016, download = FALSE)
 
-
 ```
 
 
@@ -158,12 +157,13 @@ map
 
 The motivation for this package is that maps are cool and fun and are, sometimes, the best way to communicate data. And making maps is `R` with `ggplot` is relatively easy _when you have the right `object`_. 
 
-Getting the right `object` is not technically difficult, but requires research into the best thing to do at each of the following steps:
-* Find the ASGS ABS spatial-data page and determine the right file to download.
-* Read the shapefile into `R` using one-of-many import tools.
-* Convert the object into something usable. 
-* Clean up any inconsistencies and apply consistent variable naming/values across areas and years.
-* Find an appropriate compression function and level to optimise output.
+Getting the right `object` is not technically difficult, but requires research into the best-thing-to-do at each of the following steps:
+
+*  Find the ASGS ABS spatial-data page and determine the right file to download.
+*  Read the shapefile into `R` using one-of-many import tools.
+*  Convert the object into something usable. 
+*  Clean up any inconsistencies and apply consistent variable naming/values across areas and years.
+*  Find an appropriate compression function and level to optimise output.
 
 The `absmaps` package does this for you so you can spend more time making maps, and less time on Stack Overflow.
 

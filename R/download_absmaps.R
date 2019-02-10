@@ -16,13 +16,13 @@
 #' @param removeSourceFiles Remove the original ABS shapefile data after
 #' compression. Defaults to TRUE.
 #'
-#' @importFrom tibble tibble
 #' @importFrom dplyr filter mutate_if mutate_at vars matches rename "%>%"
 #' @importFrom readr write_rds
 #' @importFrom curl has_internet
 #' @importFrom utils download.file unzip
 #' @importFrom sf st_read st_coordinates st_centroid
 #' @importFrom rmapshaper ms_simplify
+#' @importFrom purrr map2
 #'
 #' @examples
 #' \dontrun{
