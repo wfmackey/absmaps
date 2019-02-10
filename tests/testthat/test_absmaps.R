@@ -51,7 +51,7 @@ test_that("Can load data and manipulate it",{
   testdata <-
   gcc2016 %>%
     rename(hello = state)
-
+  # new commit
   expect_is(testdata, "sf")
 
 })
