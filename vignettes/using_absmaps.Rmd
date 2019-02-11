@@ -136,25 +136,24 @@ map
 ```
 
 
-Or we could show this as points (with the underlyfing spatial data included for clarity).
+If we zoom out, we notice that not all SA4's have been matched with a geometry:
 
 ```{r}
 map <- 
 ue_data %>% 
-  filter(gcc == "Greater Melbourne") %>% # still looking at Melbourne
   ggplot() +
-  geom_sf(aes(geometry = geometry),      # use the geometry variable
-          lwd = 0) +                     # remove borders
-  geom_point(aes(cent_lat, 
-                 cent_long,
-                 colour = ue_pc)) +
-  scale_size_continuous(limits = c(.1, 10)) +
-  theme_void() +                         # clears other plot elements
-  coord_sf(datum = NA)                   # fixes a gridline bug in theme_void()
+  geom_sf(aes(geometry = geometry,  # use the geometry variable
+              fill = ue_pc),        # fill by unemployment rate
+          lwd = 0) +                # remove borders
+  theme_void() +                    # clears other plot elements
+  coord_sf(datum = NA) +            # fixes a gridline bug in theme_void()
+  theme(legend.position = "off")
 
 map
 ```
 
+
+This is because the ABS has used (in this time series) the 2011 version of SA4s. We will need to use `correspond_absmaps` to 
 
 
 ## Why does this package exist?
