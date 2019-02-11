@@ -5,7 +5,7 @@
 #' @param to The area you want to correspond TO (ie the areas you want your data to be in).
 #' @param toyear The year you want to correspond TO.
 #' @param type Either 'onetomany' (the default) or 'manytomany'. 'onetomany' filters the observations to keep the best single match for each FROM area.
-#' 
+#'
 #' @return A \code{tibble} object.
 #' @examples
 #' \dontrun{
@@ -15,8 +15,8 @@
 
 get_correspondence_absmaps <- function(from, fromyear, to, toyear, type = "onetomany") {
 
-  path <- paste0("correspondences/", type, "/")
-  
+  path <- paste0("data/correspondences/", type, "/")
+
   filename <- paste(
     "CG",
     toupper(from), toupper(fromyear),
