@@ -15,7 +15,6 @@
 
 get_correspondence_absmaps <- function(from, fromyear, to, toyear, type = "onetomany") {
 
-  path <- paste0("data/correspondences/", type, "/")
 
   filename <- paste(
     "CG",
@@ -24,8 +23,5 @@ get_correspondence_absmaps <- function(from, fromyear, to, toyear, type = "oneto
     sep = "_"
   )
 
-readr::read_rds(paste0(path, filename, ".rds"))
-
 }
-
 
