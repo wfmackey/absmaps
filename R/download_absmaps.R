@@ -125,11 +125,14 @@ download_absmaps <- function(statisticalArea,
     data_loc_sa <- paste0(data_loc, "/", x, year)
     if (!dir.exists(data_loc_sa)) dir.create(data_loc_sa)
 
-    # Rename data
-    names(shape) <- gsub(year, "", tolower(names(shape)))
-    names(shape) <- gsub("ste", "state", names(shape))
-    names(shape) <- gsub("_main", "_code", names(shape))
+    # Rename data to be consistent with correspondence tables
+    names(shape) <- tolower(names(shape))
+    names(shape) <- gsub("11", "_2011", names(shape))
+    names(shape) <- gsub("16", "_2016", names(shape))
 
+
+    # Rename ste to state for ease of use (no state correspondences tables...yet)
+    names(shape) <- gsub("ste", "state", names(shape))
 
     # Some 2011 use albers_sqm instead of albers_sqkm; convert
     if (sum(grepl("sqm", names(shape))) > 0) {
@@ -138,15 +141,6 @@ download_absmaps <- function(statisticalArea,
       names(shape) <- gsub("sqm", "sqkm", names(shape))
     }
 
-
-    # Rename for consistency
-    rename_for_consistency <- function(x) {
-      names(x) <- gsub("5dig", "shortcode", names(x))
-      names(x) <- gsub("[0-9]{2}", "", names(x))
-      names(x) <- gsub("_name", "", names(x))
-    }
-
-    rename_for_consistency(shape)
 
     # Convert factors to characters, and numbers to numerics
     shape <- dplyr::mutate_if(shape, is.factor, as.character)
@@ -187,5 +181,7 @@ download_absmaps <- function(statisticalArea,
   purrr::map2(statisticalArea,
              year,
              .f = get_absmaps_and_save)
+
+  return("Finished downloading")
 
 }
