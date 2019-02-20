@@ -4,19 +4,16 @@
 \alias{get_correspondence_absmaps}
 \title{Read in ASGC/ASGS population-weighted correspondence tables from the ABS.}
 \usage{
-get_correspondence_absmaps(from, fromyear, to, toyear,
-  type = "onetomany")
+get_correspondence_absmaps(fromArea, fromYear, toArea, toYear)
 }
 \arguments{
-\item{from}{The area you want to correspond FROM (ie the areas your data are currently in). For example: "sa1", "sa2, "sa3", "sa4".}
+\item{fromArea}{The area you want to correspond FROM (ie the areas your data are currently in). For example: "sa1", "sa2, "sa3", "sa4".}
 
-\item{fromyear}{The year you want to correspond FROM. For example: 2011, 2016.}
+\item{fromYear}{The year you want to correspond FROM. For example: 2011, 2016.}
 
-\item{to}{The area you want to correspond TO (ie the areas you want your data to be in).}
+\item{toArea}{The area you want to correspond TO (ie the areas you want your data to be in).}
 
-\item{toyear}{The year you want to correspond TO.}
-
-\item{type}{Either 'onetomany' (the default) or 'manytomany'. 'onetomany' filters the observations to keep the best single match for each FROM area.}
+\item{toYear}{The year you want to correspond TO.}
 }
 \value{
 A \code{tibble} object.

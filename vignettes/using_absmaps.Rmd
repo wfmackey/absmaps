@@ -22,43 +22,67 @@ library(readr)
 ```
 
 
-The `absmaps` package does four things to simplify the process of mapping Australian data:
+The `absmaps` package has two main components:
 
-1. **downloads** particular spatial data (`maps`) from the Australian Bureau of Statistics (`abs`);
-    * This presently includes `sa1`, `sa2`, `sa3`, `sa4`, `gcc`, `ra` and `state` ASGS data from 2011 and 2016, with more to be included with time.
-1. **compresses** the original 'shapefile' data to something more manageable, without losing important detail;
-1. **converts** the shapefile data to an `sf` (simple feature) object;
-1. **saves** and **loads** the resulting `sf` object for easy use with `dplyr` and `ggplot`.
+1. A set of compressed and tidied lazily-loadable `sf` objects containing geometric information about ASGS structures; and
+1. `load_absmaps` function to neatly download and process ASGS data for use. This function: 
+    1. **downloads** particular geospatial data (`maps`) from the Australian Bureau of Statistics (`abs`);
+    * This presently includes the `sa1`, `sa2`, `sa3`, `sa4`, `gcc`, `ra` and `state` ASGS structures from 2011 and 2016, with more to be included with time.
+    1. **compresses** the original 'shapefile' data to something more manageable, without losing important detail;
+    1. **converts** the shapefile data to an `sf` (simple feature) object;
+    1. **saves** and **loads** the resulting `sf` object for easy use with `dplyr` and `ggplot`.
+
 
 Before we get into the 'what problem is this package solving' details, let's look at some examples so that you can copy-paste into your own console and replicate out-of-the-box. 
 
 
 ## Just show me how to make a map with this package
 
-The function `load_abs`, with `download = TRUE` (the default), will download, compress, convert and load the spatial data you request. The resulting `sf` object will be saved to your global environment to use. It can be joined to a standard data.frame or tibble and can be used with `dplyr` functions.
+### Using the package's pre-loaded data
 
-```{r, eval=FALSE}
+The `absmaps` package comes with pre-downloaded and pre-processed data. To load a particular geospatial object, simply load the package and call the object:
+
+```{r}
 library(absmaps)
 
-load_absmaps("sa4", year = 2016, download = TRUE)
+mapdata1 <- sa42011
+
+head(mapdata1)
+```
+
+Or
+
+```{r}
+mapdata2 <- sa22016
+
+head(mapdata2)
+```
+
+
+The resulting `sf` object contains one observation per area (in this example, one observation per `sa4`). It stores the geometry information in the `geometry` variable, which is a nested list describing the area's polygon. The object can be joined to a standard `data.frame` or `tibble` and can be used with `dplyr` functions.
+
+
+### Using the `load_absmaps` function
+The function `load_absmaps`, with `download = TRUE` (the default), will download, compress, convert and load the spatial data you request. The resulting `sf` object will be saved to your global environment to use.
+
+```{r, eval=FALSE}
+
+load_absmaps("sa4", year = 2016, download = TRUE, compress = 0.2)
 
 ```
 
 ```{r, include=FALSE}
 library(absmaps)
 
-load_absmaps("sa4", year = 2016, download = FALSE)
+mapdata3 <- load_absmaps("sa4", year = 2016, download = FALSE)
 
 ```
 
+Like the pre-loaded `sf` objects, the `load_absmaps` `sf` object contains one observation per area and stores the geometry information in the `geometry` list variable. It can be joined to a standard `data.frame` or `tibble` and can be used with `dplyr` functions.
 
-The `sf` object contains one observation per area (in this example, one observation per `sa4`). It stores the geometry information in the `geometry` variable, which is a list describing the area's polygon.
 
-```{r}
-head(sa42016)
-```
-
-We do all this so we can create maps. And from there, plotting a map via `ggplot` and `geom_sf` is simple.
+### Creating maps with your `sf` object
+We do all this so we can create gorgeous maps. And with the `sf` object in hand, plotting a map via `ggplot` and `geom_sf` is simple.
 
 ```{r}
 map <- 
@@ -83,7 +107,7 @@ sa42016 %>%
 map
 ```
 
-Cool. But this all looks a bit ugly, and we can clear it up using `ggplot` tweaks. See the comments on each line for its objective. Also note that we're filling the areas by their `areasqkm` size (we'll replace this with more interesting data in the next section).
+Cool. But, sidenote, this all looks a bit ugly. We can clear it up using `ggplot` tweaks. See the comments on each line for its objective. Also note that we're filling the areas by their `areasqkm` size, another variable included in the `sf` object (we'll replace this with more interesting data in the next section).
 
 ```{r}
 map <- 

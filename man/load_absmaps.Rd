@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_absmaps.R
 \name{load_absmaps}
 \alias{load_absmaps}
-\title{Download and load ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.}
+\title{Download and load ABS ASGS shapefile data, compress and save as an \code{sf} object.}
 \usage{
 load_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
   download = TRUE, mapCompression = 0.1, removeSourceFiles = TRUE)
@@ -10,7 +10,7 @@ load_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
 \arguments{
 \item{statisticalArea}{The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".}
 
-\item{year}{The year of the ASGS/ASGC data. Defaults to 2016, but 2011 will
+\item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
 
 \item{saveDirectory}{The path to which your map data is saved. Default is
@@ -18,10 +18,9 @@ the current working directory.}
 
 \item{download}{Download ASGS/ASGC data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.}
 
-\item{mapCompression}{The compression level of your map data. Default is
-0.1 (10\% of original detail), which makes clear, detailed maps. Higher
-compression leads to greater map file size with (in most cases) little
-visual benefit.}
+\item{mapCompression}{The compression level of your map data. Default
+is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
+compression leads to greater map file size with, in most cases, little visual benefit.}
 
 \item{removeSourceFiles}{Remove the original ABS shapefile data after
 compression. Defaults to TRUE.}
@@ -30,7 +29,7 @@ compression. Defaults to TRUE.}
 A \code{sf} object containing statistical area name, number and geometry; the size of the area; and higher-level statistical areas (eg the state and gcc of an sa2).
 }
 \description{
-Download and load ABS ASGS and/or ASGC shapefile data, compress and save as an \code{sf} object.
+Download and load ABS ASGS shapefile data, compress and save as an \code{sf} object.
 }
 \examples{
 \dontrun{

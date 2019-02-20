@@ -7,3 +7,4 @@
 ^.*\tests$
 ^.*\absmaps$
 ^\.travis\.yml$
+^play

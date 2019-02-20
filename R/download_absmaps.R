@@ -2,17 +2,16 @@
 #' as an \code{sf} object.
 #'
 #' @name download_absmaps
-#' @param statisticalArea The statistical area you want to load. One or more
-#' (combined with \code{c("","","etc")}) of: "sa1", "sa2, "sa3", "sa4", "gcc",
-#'  "state".
-#' @param year The year of the ASGS/ASGC data. Defaults to 2016, but 2011 will
+#' @param statisticalArea The statistical area you want to load. One of
+#' "sa1", "sa2, "sa3", "sa4", "gcc", "state". Multiple files can be combined
+#' by providing a vector, eg `c("sa1", "sa2", "state)`.
+#' @param year The year of the ASGS data. Defaults to 2016, but 2011 will
 #' be useful for older data.
 #' @param saveDirectory The path to which your map data is saved. Default is
 #' the current working directory.
-#' @param mapCompression The compression level of your map data. Default is
-#' 0.1 (10\% of original detail), which makes clear, detailed maps. Higher
-#' compression leads to greater map file size with (in most cases) little
-#' visual benefit.
+#' @param mapCompression The compression level of your map data. Default
+#' is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
+#' compression leads to greater map file size with, in most cases, little visual benefit.
 #' @param removeSourceFiles Remove the original ABS shapefile data after
 #' compression. Defaults to TRUE.
 #'
@@ -32,10 +31,6 @@
 #' @export
 
 
-# library(readr)
-# library(sf)
-# library(rmapshaper) # ms_simplify
-
 download_absmaps <- function(statisticalArea,
                              year = 2016,
                              saveDirectory = ".",
@@ -43,7 +38,9 @@ download_absmaps <- function(statisticalArea,
                              removeSourceFiles = TRUE) {
 
   # Check if there is internet connection
-  if(!curl::has_internet()) stop("Oop -- you are not connected to the internet to download ABS map data.")
+  if(!curl::has_internet()) {
+    stop("Oop -- you are not connected to the internet to download ABS map data.")
+    }
 
   # Check if statisticalArea is appropriate
   valid_areas <- c("sa1", "sa2", "sa3", "sa4", "gcc", "state", "ra")
@@ -61,7 +58,11 @@ download_absmaps <- function(statisticalArea,
 
 
   # Warn if compression is too low
-  if (mapCompression > 0.2) warning("Note: map compression makes plotting data faster without (substantial) loss of quality. Consider a map compression value of 0.2 or less.")
+  if (mapCompression > 0.2) {
+    warning(paste("Note: map compression makes plotting data faster without (substantial)",
+                  "loss of quality. Consider a map compression value of 0.2 or less.")
+            )
+  }
 
   # Tidy save directory
   saveDirectory <- gsub("\\/$", "", saveDirectory)
@@ -138,10 +139,14 @@ download_absmaps <- function(statisticalArea,
     }
 
 
-    # Add to main code
-    names(shape) <- gsub("5dig", "shortcode", names(shape))
-    names(shape) <- gsub("[0-9]{2}", "", names(shape))
-    names(shape) <- gsub("_name", "", names(shape))
+    # Rename for consistency
+    rename_for_consistency <- function(x) {
+      names(x) <- gsub("5dig", "shortcode", names(x))
+      names(x) <- gsub("[0-9]{2}", "", names(x))
+      names(x) <- gsub("_name", "", names(x))
+    }
+
+    rename_for_consistency(shape)
 
     # Convert factors to characters, and numbers to numerics
     shape <- dplyr::mutate_if(shape, is.factor, as.character)
