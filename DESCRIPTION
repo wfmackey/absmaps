@@ -15,7 +15,8 @@ Imports:
     curl,
     dplyr,
     ggplot2 (>= 3.1),
-    purrr
+    purrr,
+    rlang
 Suggests:
 	knitr, 
 	rmarkdown,

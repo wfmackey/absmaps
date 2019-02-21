@@ -9,12 +9,19 @@
 #' For example, \code{count} or \code{n} that represent the number of people in a given area.
 #'
 #'
+#' @importFrom rlang :=
+#'
 #' @return A \code{tibble} object.
 #' @examples
 #' \dontrun{
 #'
 #' }
 #' @export
+
+
+## quiets concerns of R CMD check re: the out-of-nowhere 'ratio' variable
+globalVariables(c("ratio"))
+
 
 # Note that this should have better flow from get_correspond_absmaps
 correspond_absmaps <- function(data,

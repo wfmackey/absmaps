@@ -30,6 +30,9 @@
 #' }
 #' @export
 
+## quiets concerns of R CMD check re: the out-of-nowhere 'ratio' variable
+globalVariables(c("X", "Y"))
+
 
 download_absmaps <- function(statisticalArea,
                              year = 2016,

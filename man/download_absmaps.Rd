@@ -4,10 +4,6 @@
 \alias{download_absmaps}
 \title{Download ABS ASGS and/or ASGC shapefile data, compress and save
 as an \code{sf} object.}
-\usage{
-download_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
-  mapCompression = 0.1, removeSourceFiles = TRUE)
-}
 \arguments{
 \item{statisticalArea}{The statistical area you want to load. One of
 "sa1", "sa2, "sa3", "sa4", "gcc", "state". Multiple files can be combined
