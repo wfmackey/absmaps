@@ -10,6 +10,8 @@ before_install:
   - sudo apt-get install -y libudunits2-dev
   - sudo apt-get install -y libv8-dev
   - sudo apt-get install -y libjq-dev
-  - sudo apt-get install -y ibgdal1-dev
-before_script:
-  - Rscript -e "install.packages('rgdal', type = 'source')"
+addons:
+  apt:
+    packages:
+      - libgdal-dev
+      - libproj-dev
