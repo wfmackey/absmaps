@@ -18,13 +18,14 @@ load_absmaps <- function(statisticalArea,
                          removeSourceFiles = TRUE
                          ) {
 
-  # Checks
+  # Check area length
   if (length(statisticalArea) > 1) {
     stop(paste("Sorry, you can't load more than one file at a time.",
                "But you can _download_ more than one at a time",
                "using `download_abs()`"))
   }
 
+  # Check map compression
   if (mapCompression <= 0 | mapCompression > 1) {
     stop(paste("Map compression needs to be in the range (0, 1].",
                "For example, 0.1 compresses to 10% of the file size.",
@@ -32,45 +33,59 @@ load_absmaps <- function(statisticalArea,
                "is outside that range."))
   }
 
-if (download) {
+  # Retrieve pre-loaded data if it is the same:
+  if (!download && mapCompression == 0.1) {
+    return(
+      get(paste0(statisticalArea, year))
+      )
+  }
 
-  this_message <- paste0("Downloading and processing your ", statisticalArea,
-                         year, " sf object")
+  # If the request is different OR download is specified:
+  objectpath <- paste0(saveDirectory,
+                       "/absmaps/",
+                       statisticalArea, year, "/",
+                       statisticalArea, year, ".rds")
 
-  print(this_message)
-
-  download_absmaps(statisticalArea,
-                   year = year,
-                   saveDirectory = saveDirectory,
-                   mapCompression = mapCompression,
-                   removeSourceFiles = removeSourceFiles)
-
-  this_message <- paste0(
-    "Download and processing complete.",
-    "Reading your ", statisticalArea, year,
-    " sf object")
+  if (!download && mapCompression != 0.1) {
+    this_message <- paste0(
+      "Reading your ", statisticalArea, year,
+      " sf object from ", objectpath)
 
     print(this_message)
+
+    if (!file.exists(objectpath)) {
+      stop(paste("The file", objectpath, "does not exist.",
+                 "You can download it using download = TRUE"))
+    }
+
+    # Otherwise, all good to read
+    readr::read_rds(objectpath)
+  }
+
+
+  if (download) {
+
+    this_message <- paste0("Downloading and processing your ", statisticalArea,
+                           year, " sf object")
+
+    print(this_message)
+
+    download_absmaps(statisticalArea,
+                     year = year,
+                     saveDirectory = saveDirectory,
+                     mapCompression = mapCompression,
+                     removeSourceFiles = removeSourceFiles)
+
+    this_message <- paste0(
+      "Download and processing complete.",
+      "Reading your ", statisticalArea, year,
+      " sf object")
+
+      print(this_message)
+
+      readr::read_rds(path)
+  }
+
 }
 
-if (!download) {
-  this_message <- paste0(
-    "Reading your ", statisticalArea, year,
-    " sf object")
-
-  print(this_message)
-
-}
-
-
-    path <- paste0(saveDirectory,
-                   "/absmaps/",
-                    statisticalArea, year, "/",
-                    statisticalArea, year, ".rds")
-
-
-    print(path)
-    readr::read_rds(path)
-
-}
 

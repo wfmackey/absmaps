@@ -94,16 +94,19 @@ download_absmaps <- function(statisticalArea,
 
     ra2011_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055005_ra_2001_aust_shape.zip&1270.0.55.005&Data%20Cubes&C712776994895856CA257B03000D7599&0&July%202011&31.01.2013&Latest"
 
+    # Download
     message(paste0("Downloading ", x, year, " data from abs.gov.au"))
 
     utils::download.file(get(paste0(x, year, "_url")),
                          paste0(saveDirectory, "/", x, year, ".zip"),
                          "auto")
 
+    # Unzip and clean up
     utils::unzip(paste0(saveDirectory, "/", x, year, ".zip"), exdir = paste0(saveDirectory, "/", x, year))
 
     if (removeSourceFiles) file.remove(paste0(saveDirectory, "/", x, year, ".zip"))
 
+    # Read shapefile
     if (x == "state")               prefix <- "ste"
     if (x == "gcc")                 prefix <- "gccsa"
     if (x != "state" && x != "gcc") prefix <- x
@@ -112,6 +115,7 @@ download_absmaps <- function(statisticalArea,
     message(paste0("Reading ", x, year, " shapefile"))
     shape <- sf::st_read(paste0(saveDirectory, "/", x, year, "/", toupper(prefix), "_", year, "_AUST.shp"))
 
+    # Compress shapefile
     message(paste0("Compressing ", x, year, " shapefile to ",
                    mapCompression, " (", mapCompression * 100,
                    "% of original detail)"))
@@ -120,9 +124,13 @@ download_absmaps <- function(statisticalArea,
 
     message("Compressed")
 
+    # Set up directory
     data_loc <- path.expand(paste0(saveDirectory, "/absmaps"))
+
     if (!dir.exists(data_loc)) dir.create(data_loc)
+
     data_loc_sa <- paste0(data_loc, "/", x, year)
+
     if (!dir.exists(data_loc_sa)) dir.create(data_loc_sa)
 
     # Rename data to be consistent with correspondence tables
@@ -144,7 +152,7 @@ download_absmaps <- function(statisticalArea,
 
     # Convert factors to characters, and numbers to numerics
     shape <- dplyr::mutate_if(shape, is.factor, as.character)
-    shape <- dplyr::mutate_at(shape, dplyr::vars(dplyr::matches("[^g][^c][^c]\\code")), as.numeric)
+    # shape <- dplyr::mutate_at(shape, dplyr::vars(dplyr::matches("[^g][^c][^c]\\code")), as.numeric)
 
 
     # Add centroids

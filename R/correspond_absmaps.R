@@ -28,33 +28,23 @@ correspond_absmaps <- function(data,
     toYear   = toYear
   )
 
-  # # Need to rename data to fit with ABS standards elsewhere
-  # names(correspondence) <- gsub(paste0("_", fromYear), "", names(correspondence))
-  #
-  # # And grab second 'name' variable name
-  # # Surely not the neatest way to do this but works for now
-  # second_name_var <- names(corr) %>%
-  #   grep("name", .) %>%
-  #   max() %>%
-  #   names(corr)[.]
-  #
-  # second_name_var <- enquo(second_name_var)
-  #
-  #
-  # # Enquote nVar for tidyeval
-  # nVar <- dplyr::enquo(nVar)
-  #
-  # # This will create a new row for each combination
-  # d <-
-  # left_join(data, correspondence) %>%
-  #   # Re-distribute n evenly according to pc
-  #   mutate(q = !!nVar * ratio) %>%
-  #   # Summarise over the 'to' variable
-  #   group_by(!!second_name_var) %>%
-  #   summarise(q = sum(q)) %>%
-  #   # Rename to the original variable name
-  #   rename(!!nVar := q)
-  #
-  # return(d)
+  # Enquote nVar for tidyeval
+  nVar <- dplyr::enquo(nVar)
+  toVar <- paste(toArea, "name", toYear, sep = "_")
+  toVar <- dplyr::sym(toVar)
+
+
+  d <-
+    # This will create a new row for each combination
+    dplyr::left_join(data, correspondence) %>%
+    # Re-distribute n evenly according to pc
+    dplyr::mutate(q = !!nVar * ratio) %>%
+    # Summarise over the 'to' variable
+    dplyr::group_by(!!toVar) %>%
+    dplyr::summarise(q = sum(q)) %>%
+    # Rename to the original variable name
+    dplyr::rename(!!nVar := q)
+
+  return(d)
 
 }
