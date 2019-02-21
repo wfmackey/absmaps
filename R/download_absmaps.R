@@ -76,9 +76,9 @@ download_absmaps <- function(statisticalArea,
   }
 
 
-  get_absmaps_and_save <- function(x, year) {
+  get_asgs_and_save <- function(x, year) {
 
-    # URLs for ABS shapefile data
+    # URLs for ASGS shapefile data
     sa12016_url <-   "https://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055001_sa1_2016_aust_shape.zip&1270.0.55.001&Data%20Cubes&6F308688D810CEF3CA257FED0013C62D&0&July%202016&12.07.2016&Latest"
     sa22016_url <-   "https://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055001_sa2_2016_aust_shape.zip&1270.0.55.001&Data%20Cubes&A09309ACB3FA50B8CA257FED0013D420&0&July%202016&12.07.2016&Latest"
     sa32016_url <-   "https://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055001_sa3_2016_aust_shape.zip&1270.0.55.001&Data%20Cubes&43942523105745CBCA257FED0013DB07&0&July%202016&12.07.2016&Latest"
@@ -188,10 +188,10 @@ download_absmaps <- function(statisticalArea,
 
   }
 
-  # Apply get_absmaps_and_save to each sa and year
+  # Apply get_asgs_and_save to each sa and year
   purrr::map2(statisticalArea,
              year,
-             .f = get_absmaps_and_save)
+             .f = get_asgs_and_save)
 
   return("Finished downloading")
 
