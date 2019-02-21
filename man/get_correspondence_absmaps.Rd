@@ -23,6 +23,7 @@ Read in ASGC/ASGS population-weighted correspondence tables from the ABS.
 }
 \examples{
 \dontrun{
-sa4_corr <- get_correspondence_absmaps("sa4", 2011, "sa4", 2011)
+sa4_corr <- get_correspondence_absmaps("sa4", 2011,
+                                       "sa4", 2016)
 }
 }

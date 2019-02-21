@@ -4,7 +4,7 @@
 \alias{correspond_absmaps}
 \title{Read in ASGC/ASGS population-weighted correspondence tables from the ABS.}
 \usage{
-correspond_absmaps(data, ..., nVar)
+correspond_absmaps(data, fromArea, fromYear, toArea, toYear, nVar)
 }
 \arguments{
 \item{data}{The original data.frame or tibble containing  that you want 'corresponded'.}
