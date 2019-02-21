@@ -4,8 +4,8 @@ language: R
 sudo: false
 cache: packages
 warnings_are_errors: false
-addos:
+before_install:
+  - sudo apt-get install -y libprotobuf-dev
+addons:
   apt:
-    packages:
-      - libprotobuf-dev
-      - protobuf-compiler
+    update: true
