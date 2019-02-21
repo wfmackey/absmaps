@@ -6,6 +6,7 @@ cache: packages
 warnings_are_errors: false
 before_install:
   - sudo apt-get install -y libprotobuf-dev
+  - sudo apt-get install -y protobuf-compiler
 addons:
   apt:
     update: true
