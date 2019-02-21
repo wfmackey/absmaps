@@ -83,7 +83,7 @@ load_absmaps <- function(statisticalArea,
 
       print(this_message)
 
-      readr::read_rds(path)
+      readr::read_rds(objectpath)
   }
 
 }

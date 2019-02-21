@@ -1,7 +1,10 @@
 #' Read in ASGC/ASGS population-weighted correspondence tables from the ABS.
 #' @name correspond_absmaps
 #' @param data The original data.frame or tibble containing  that you want 'corresponded'.
-#' @inheritDotParams
+#' @param fromArea The original area to correspond from ("sa1", "sa2", etc; see documentation for the full list.)
+#' @param fromYear The year to correspond from (2011, 2016, etc; see documentation for full list.)
+#' @param toArea The original area to correspond to ("sa1", "sa2", etc; see documentation for the full list.)
+#' @param toYear The year to correspond to (2011, 2016, etc; see documentation for full list.)
 #' @param nVar The variable you want distributed according to the correspondence ratio.
 #' For example, \code{count} or \code{n} that represent the number of people in a given area.
 #'
