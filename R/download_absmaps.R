@@ -97,6 +97,12 @@ download_absmaps <- function(statisticalArea,
 
     ra2011_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055005_ra_2001_aust_shape.zip&1270.0.55.005&Data%20Cubes&C712776994895856CA257B03000D7599&0&July%202011&31.01.2013&Latest"
 
+    # URLs for non-ASGS structures
+    lga2018_url <- "http://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055003_lga_2018_aust_shape.zip&1270.0.55.003&Data%20Cubes&FCDD3670BE71AA90CA258339000D8477&0&July%202018&05.11.2018&Latest"
+    sed2018_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055003_sed_2018_aust_shp.zip&1270.0.55.003&Data%20Cubes&A340810D128D5531CA2582DA00118272&0&July%202018&31.07.2018&Latest"
+    ced2018_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055003_ced_2018_aust_shp.zip&1270.0.55.003&Data%20Cubes&BF4D23C712D492CFCA2582F600180556&0&July%202018&28.08.2018&Latest"
+
+
     # Download
     message(paste0("Downloading ", x, year, " data from abs.gov.au"))
 
@@ -140,6 +146,7 @@ download_absmaps <- function(statisticalArea,
     names(shape) <- tolower(names(shape))
     names(shape) <- gsub("11", "_2011", names(shape))
     names(shape) <- gsub("16", "_2016", names(shape))
+    names(shape) <- gsub("18", "_2018", names(shape))
 
 
     # Rename ste to state for ease of use (no state correspondences tables...yet)
@@ -193,6 +200,6 @@ download_absmaps <- function(statisticalArea,
              year,
              .f = get_asgs_and_save)
 
-  return("Finished downloading")
+  return("Finished downloading and processing")
 
 }
