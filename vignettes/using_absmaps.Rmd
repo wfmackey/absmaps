@@ -46,7 +46,7 @@ The `absmaps` package comes with pre-downloaded and pre-processed data. To load 
 
 library(absmaps)
 
-mapdata1 <- sa42011
+mapdata1 <- sa32011
 
 head(mapdata1)
 ```
@@ -60,7 +60,7 @@ head(mapdata2)
 ```
 
 
-The resulting `sf` object contains one observation per area (in the following examples, one observation per `sa4`). It stores the geometry information in the `geometry` variable, which is a nested list describing the area's polygon. The object can be joined to a standard `data.frame` or `tibble` and can be used with `dplyr` functions.
+The resulting `sf` object contains one observation per area (in the following examples, one observation per `sa3`). It stores the geometry information in the `geometry` variable, which is a nested list describing the area's polygon. The object can be joined to a standard `data.frame` or `tibble` and can be used with `dplyr` functions.
 
 
 ### Using the `load_absmaps` function
@@ -69,14 +69,13 @@ The function `load_absmaps`, with `download = TRUE` (the default), will download
 
 ```{r, eval=FALSE}
 
-load_absmaps("sa4", year = 2016, download = TRUE, compress = 0.2)
+mapdata3 <- load_absmaps("sa3", year = 2016, download = TRUE, compress = 0.2)
 
 ```
 
 ```{r, include=FALSE}
-library(absmaps)
 
-mapdata3 <- sa42016
+mapdata3 <- sa32016
 
 ```
 
@@ -88,7 +87,7 @@ We do all this so we can create gorgeous maps. And with the `sf` object in hand,
 
 ```{r}
 map <-
-sa42016 %>%
+sa32016 %>%
   filter(gcc_name_2016 == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry))  # use the geometry variable
@@ -100,7 +99,7 @@ The `load_absmaps` package also calculates the centorids of each area, and we ca
 
 ```{r}
 map <-
-sa42016 %>%
+sa32016 %>%
   filter(gcc_name_2016 == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry)) +   # use the geometry variable
@@ -113,7 +112,7 @@ Cool. But, sidenote, this all looks a bit ugly. We can pretty it up using `ggplo
 
 ```{r}
 map <-
-sa42016 %>%
+sa32016 %>%
   filter(gcc_name_2016 == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry,  # use the geometry variable
@@ -159,12 +158,12 @@ For example: we have a simple dataset of the unemployment rate in each `sa4` in 
 
 ```{r}
 # Read data in
-ue_data <- read_csv("data/ue_data.csv")
+income <- read_csv("data/median_income_sa3.csv")
 
 # This data contains a variable of sa4 which 
 # can be joined to the sa4_name_2016 variable:
-combined_data <- ue_data %>% 
-  left_join(sa42016, by = c("sa4" = "sa4_name_2016"))
+combined_data <- income %>% 
+  left_join(sa32016, by = "sa3_name_2016")
 ```
 
 Now that we have a tidy dataset with 1) the unemployment data we want to plot, and 2) the geometry of the areas, we can plot unemployment rates by area:
@@ -175,53 +174,38 @@ combined_data %>%
   filter(gcc_name_2016 == "Greater Melbourne") %>%   # let's just look Melbourne
   ggplot() +
   geom_sf(aes(geometry = geometry,  # use the geometry variable
-              fill = ue_pc),        # fill by unemployment rate
+              fill = median_income),        # fill by unemployment rate
           lwd = 0) +                # remove borders
   theme_void() +                    # clears other plot elements
   coord_sf(datum = NA) +            # fixes a gridline bug in theme_void()
-  labs(fill = "Unemployment\nrate,\nper cent")
+  labs(fill = "Median income")
 
 map
 ```
 
-# Correspond area data
+<!-- # Correspond area data -->
 
-If we zoom out, we notice that not all SA4's have been matched with a geometry:
+<!-- Sometimes it is necessary... -->
+<!-- We can use use `correspond_absmaps` to correspond the 2011 SA4s to 2016 SA4s. This function uses population-weighted correspondence tables provided by the ABS to distribute a number of people from one area to another.  -->
 
-```{r}
-map <-
-combined_data %>%
-  ggplot() +
-  geom_sf(aes(geometry = geometry,
-              fill = ue_pc),
-          lwd = 0) +
-  theme_void() +
-  coord_sf(datum = NA) +
-  theme(legend.position = "off")
-
-map
-```
-
-This is because the ABS has used (in this time series) the 2011 version of SA4s. We can use use `correspond_absmaps` to correspond the 2011 SA4s to 2016 SA4s. This function uses population-weighted correspondence tables provided by the ABS to distribute a number of people from one area to another. 
-
-```{r, eval = FALSE}
-corr <-
-correspond_absmaps(ue_data, 
-                  fromArea = "sa4", fromYear = 2011,
-                  toArea = "sa4", toYear = 2016,
-                  nVar = ue_pc,
-                  addGroup = year)
+<!-- ```{r, eval = FALSE} -->
+<!-- corr <- -->
+<!-- correspond_absmaps(ue_data,  -->
+<!--                   fromArea = "sa4", fromYear = 2011, -->
+<!--                   toArea = "sa4", toYear = 2016, -->
+<!--                   nVar = ue_pc, -->
+<!--                   addGroup = year) -->
 
 
-new_combined <- corr %>% 
-  left_join(sa42016)
+<!-- new_combined <- corr %>%  -->
+<!--   left_join(sa42016) -->
 
-new_combined %>% 
-  ggplot() +
-  geom_sf(aes(geometry = geometry,
-              fill = ue_pc))
-  
-```
+<!-- new_combined %>%  -->
+<!--   ggplot() + -->
+<!--   geom_sf(aes(geometry = geometry, -->
+<!--               fill = ue_pc)) -->
+
+<!-- ``` -->
 
 
 
@@ -252,4 +236,4 @@ The `absmaps` package uses four key functions to do-the-things-it-does:
 
 There are a bunch of other fiddley-things on top of that, but those four steps are the 'workhorse' functions. A big thanks to people who built them.
 
-If you're interested, check out `load_absmaps.R` code in the `R/` file. And, of course, if you have a suggestion to improve, please do let me know via an issue at https://github.com/wfmackey/absmaps.
+If you're interested, check out `download_absmaps.R` code in the `R/` file. And, of course, if you have a suggestion to improve, please do let me know via an issue at https://github.com/wfmackey/absmaps.
