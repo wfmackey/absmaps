@@ -12,6 +12,7 @@
 #' @param mapCompression The compression level of your map data. Default
 #' is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
 #' compression leads to greater map file size with, in most cases, little visual benefit.
+#' Map compression can be set to "off".
 #' @param removeSourceFiles Remove the original ABS shapefile data after
 #' compression. Defaults to TRUE.
 #'
@@ -61,7 +62,7 @@ download_absmaps <- function(statisticalArea,
 
 
   # Warn if compression is too low
-  if (mapCompression > 0.2) {
+  if (mapCompression != "off" && mapCompression > 0.2) {
     warning(paste("Note: map compression makes plotting data faster without (substantial)",
                   "loss of quality. Consider a map compression value of 0.2 or less.")
             )
@@ -124,6 +125,7 @@ download_absmaps <- function(statisticalArea,
     message(paste0("Reading ", x, year, " shapefile"))
     shape <- sf::st_read(paste0(saveDirectory, "/", x, year, "/", toupper(prefix), "_", year, "_AUST.shp"))
 
+    if (mapCompression != "off") {
     # Compress shapefile
     message(paste0("Compressing ", x, year, " shapefile to ",
                    mapCompression, " (", mapCompression * 100,
@@ -132,6 +134,7 @@ download_absmaps <- function(statisticalArea,
     shape <- rmapshaper::ms_simplify(shape, keep = mapCompression, keep_shapes = TRUE)
 
     message("Compressed")
+    }
 
     # Set up directory
     data_loc <- path.expand(paste0(saveDirectory, "/absmaps"))

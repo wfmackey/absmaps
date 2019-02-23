@@ -17,7 +17,8 @@ the current working directory.}
 
 \item{mapCompression}{The compression level of your map data. Default
 is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
-compression leads to greater map file size with, in most cases, little visual benefit.}
+compression leads to greater map file size with, in most cases, little visual benefit.
+Map compression can be set to "off".}
 
 \item{removeSourceFiles}{Remove the original ABS shapefile data after
 compression. Defaults to TRUE.}
