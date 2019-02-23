@@ -25,11 +25,14 @@ globalVariables(c("ratio"))
 
 # Note that this should have better flow from get_correspond_absmaps
 correspond_absmaps <- function(data,
+                               correspondFrom,
+                               nVar,
                                fromArea,
                                fromYear,
                                toArea,
                                toYear ,
-                               nVar) {
+                               groupVar
+                               ) {
 
   correspondence <- get_correspondence_absmaps(
     fromArea = fromArea,
@@ -38,21 +41,34 @@ correspond_absmaps <- function(data,
     toYear   = toYear
   )
 
+
   # Enquote nVar for tidyeval
   nVar <- dplyr::enquo(nVar)
-  toVar <- paste(toArea, "name", toYear, sep = "_")
-  toVar <- dplyr::sym(toVar)
+  groupVar <- dplyr::enquo(groupVar)
 
+  # Get FROM variable
+  fromVarChar <- paste(fromArea, "name", fromYear, sep = "_")
+  fromVar <- dplyr::sym(fromVarChar)
+
+  # Get TO variable
+  toVarChar <- paste(toArea, "name", toYear, sep = "_")
+  toVar <- dplyr::sym(toVarChar)
+
+  # Set up by(c(...)) for join
+  join_cols = c(fromVarChar)
+  names(join_cols) <- correspondFrom
 
   d <-
     # This will create a new row for each combination
-    dplyr::left_join(data, correspondence) %>%
+    dplyr::left_join(data, correspondence,
+                     by = join_cols) %>%
     # Re-distribute n evenly according to pc
     dplyr::mutate(q = !!nVar * ratio) %>%
     # Summarise over the 'to' variable
-    dplyr::group_by(!!toVar) %>%
+    dplyr::group_by(!!toVar, !!groupVar) %>%
     dplyr::summarise(q = sum(q)) %>%
-    # Rename to the original variable name
+    dplyr::filter(!is.na(!!toVar)) %>%
+    # Rename back to originals
     dplyr::rename(!!nVar := q)
 
   return(d)
