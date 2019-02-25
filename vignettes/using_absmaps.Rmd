@@ -22,12 +22,12 @@ library(readr)
 ```
 
 
-The `absmaps` package has two main components:
+The `absmaps` exists to make it easier to produce maps from ABS data in R. The package has two main components:
 
 1. A set of compressed and tidied lazily-loadable `sf` objects containing geometric information about ASGS structures; and
 1. `load_absmaps` function to neatly download and process ASGS data for use. This function: 
     1. **downloads** particular geospatial data (`maps`) from the Australian Bureau of Statistics (`abs`);
-    * This presently includes the `sa1`, `sa2`, `sa3`, `sa4`, `gcc`, `ra` and `state` ASGS structures from 2011 and 2016, with more to be included with time.
+        * This presently includes the `sa1`, `sa2`, `sa3`, `sa4`, `gcc`, `ra` and `state` ASGS structures from 2011 and 2016, with more to be included with time.
     1. **compresses** the original 'shapefile' data to something more manageable, without losing important detail;
     1. **converts** the shapefile data to an `sf` (simple feature) object;
     1. **saves** and **loads** the resulting `sf` object for easy use with `dplyr` and `ggplot`.
