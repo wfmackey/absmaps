@@ -26,12 +26,13 @@ load_absmaps <- function(statisticalArea,
   }
 
   # Check map compression
+  if (mapCompression != "off") {
   if (mapCompression <= 0 | mapCompression > 1) {
     stop(paste("Map compression needs to be in the range (0, 1].",
                "For example, 0.1 compresses to 10% of the file size.",
                "Your compression value of ", mapCompression,
                "is outside that range."))
-  }
+  }}
 
   # Retrieve pre-loaded data if it is the same:
   if (!download && mapCompression == 0.1) {

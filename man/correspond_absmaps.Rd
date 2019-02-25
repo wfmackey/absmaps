@@ -6,6 +6,8 @@
 \arguments{
 \item{data}{The original data.frame or tibble containing  that you want 'corresponded'.}
 
+\item{correspondFrom}{The variable to correspond from.}
+
 \item{fromArea}{The original area to correspond from ("sa1", "sa2", etc; see documentation for the full list.)}
 
 \item{fromYear}{The year to correspond from (2011, 2016, etc; see documentation for full list.)}
@@ -14,7 +16,12 @@
 
 \item{toYear}{The year to correspond to (2011, 2016, etc; see documentation for full list.)}
 
-\item{nVar}{The variable you want distributed according to the correspondence ratio.
+\item{nVar}{The variable you want distributed according to the correspondence ratio.}
+
+\item{summarise}{TRUE if you would like to collapse your data to be one observation per new area.
+If FALSE, one observation per original area will be returned.}
+
+\item{groupVar}{If you would like to group your summary by an additional variable.
 For example, \code{count} or \code{n} that represent the number of people in a given area.}
 }
 \value{
@@ -25,6 +32,11 @@ Read in ASGC/ASGS population-weighted correspondence tables from the ABS.
 }
 \examples{
 \dontrun{
-
+lga \%>\%
+correspond_absmaps(correspondFrom = lga_name_2017,
+                   nVar = employees,
+                   fromArea = "lga", fromYear = 2017,
+                   toArea = "sa3", toYear = 2016,
+                   groupVar = year)
 }
 }

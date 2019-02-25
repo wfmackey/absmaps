@@ -296,36 +296,3 @@
 #' \item{\code{geometry}}{A nested list containing the area's geometry (polygons)}
 #' }
 "lga2018"
-
-
-
-#' State Electoral Districts, 2018
-#'
-#' Geospatial data provided by the ABS for state electoral districts (SEDs) in 2018.
-#'
-#' @format An \code{sf} object with six variables:
-#' #' \describe{
-#' \item{\code{sed_code_2018}}{The SED code}
-#' \item{\code{sed_name_2018}}{The SED name}
-#' \item{\code{albers_sqkm_2018}}{The area in square kilometres}
-#' \item{\code{cent_lat}}{The latitide of the area's centroid}
-#' \item{\code{cent_long}}{The latitide of the area's centroid}
-#' \item{\code{geometry}}{A nested list containing the area's geometry (polygons)}
-#' }
-"sed2018"
-
-
-#' Commonwealth Electoral Districts, 2018
-#'
-#' Geospatial data provided by the ABS for Commonwealth electoral districts (CEDs) in 2018.
-#'
-#' @format An \code{sf} object with six variables:
-#' #' \describe{
-#' \item{\code{sed_code_2018}}{The SED code}
-#' \item{\code{sed_name_2018}}{The SED name}
-#' \item{\code{albers_sqkm_2018}}{The area in square kilometres}
-#' \item{\code{cent_lat}}{The latitide of the area's centroid}
-#' \item{\code{cent_long}}{The latitide of the area's centroid}
-#' \item{\code{geometry}}{A nested list containing the area's geometry (polygons)}
-#' }
-"ced2018"
