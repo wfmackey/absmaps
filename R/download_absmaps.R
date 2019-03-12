@@ -31,7 +31,7 @@
 #' }
 #' @export
 
-## quiets concerns of R CMD check re: the out-of-nowhere 'ratio' variable
+## quiets concerns of R CMD check re: the out-of-nowhere 'X' and 'Y' variables
 globalVariables(c("X", "Y"))
 
 
