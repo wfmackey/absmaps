@@ -47,7 +47,7 @@ download_absmaps <- function(statisticalArea,
     }
 
   # Check if statisticalArea is appropriate
-  valid_areas <- c("sa1", "sa2", "sa3", "sa4", "gcc", "state", "ra")
+  valid_areas <- c("sa1", "sa2", "sa3", "sa4", "gcc", "state", "ra", "lga", "sed", "ced", "postal")
 
   if (mean(statisticalArea %in% valid_areas) < 1) {
     valid_areas_char <- paste(valid_areas, collapse = ', ')
@@ -99,6 +99,9 @@ download_absmaps <- function(statisticalArea,
     ra2011_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055005_ra_2001_aust_shape.zip&1270.0.55.005&Data%20Cubes&C712776994895856CA257B03000D7599&0&July%202011&31.01.2013&Latest"
 
     # URLs for non-ASGS structures
+    lga2016_url <- "http://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055003_lga_2016_aust_shape.zip&1270.0.55.003&Data%20Cubes&7951843398FB3F4ECA25833D000EAE34&0&July%202016&07.11.2018&Previous"
+    ced2016 <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055003_ced_2016_aust_shape.zip&1270.0.55.003&Data%20Cubes&447BE1AE2E3E7A3ACA25802C00144C3C&0&July%202016&13.09.2016&Previous"
+    postal2016_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055003_poa_2016_aust_shape.zip&1270.0.55.003&Data%20Cubes&4FB811FA48EECA7ACA25802C001432D0&0&July%202016&13.09.2016&Previous"
     lga2018_url <- "http://www.abs.gov.au/AUSSTATS/subscriber.nsf/log?openagent&1270055003_lga_2018_aust_shape.zip&1270.0.55.003&Data%20Cubes&FCDD3670BE71AA90CA258339000D8477&0&July%202018&05.11.2018&Latest"
     sed2018_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055003_sed_2018_aust_shp.zip&1270.0.55.003&Data%20Cubes&A340810D128D5531CA2582DA00118272&0&July%202018&31.07.2018&Latest"
     ced2018_url <- "http://www.abs.gov.au/ausstats/subscriber.nsf/log?openagent&1270055003_ced_2018_aust_shp.zip&1270.0.55.003&Data%20Cubes&BF4D23C712D492CFCA2582F600180556&0&July%202018&28.08.2018&Latest"
