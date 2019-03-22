@@ -1,6 +1,6 @@
 #' Download and load ABS ASGS shapefile data, compress and save as an \code{sf} object.
 #' @name load_absmaps
-#' @param statisticalArea The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".
+#' @param area The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".
 #' @param download Download ASGS/ASGC data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.
 #' @inheritParams download_absmaps
 #' @return A \code{sf} object containing statistical area name, number and geometry; the size of the area; and higher-level statistical areas (eg the state and gcc of an sa2).
@@ -10,7 +10,7 @@
 #' }
 #' @export
 
-load_absmaps <- function(statisticalArea,
+load_absmaps <- function(area,
                          year = 2016,
                          saveDirectory = ".",
                          download = TRUE,
@@ -19,7 +19,7 @@ load_absmaps <- function(statisticalArea,
                          ) {
 
   # Check area length
-  if (length(statisticalArea) > 1) {
+  if (length(area) > 1) {
     stop(paste("Sorry, you can't _load_ more than one file at a time.",
                "But you can _download_ more than one at a time",
                "using `download_abs()`"))
@@ -38,12 +38,12 @@ load_absmaps <- function(statisticalArea,
   # If download is specified:
   objectpath <- paste0(saveDirectory,
                        "/absmaps/",
-                       statisticalArea, year, "/",
-                       statisticalArea, year, ".rds")
+                       area, year, "/",
+                       area, year, ".rds")
 
   if (!download) {
     this_message <- paste0(
-      "Reading your ", statisticalArea, year,
+      "Reading your ", area, year,
       " sf object from ", objectpath)
 
     print(this_message)
@@ -60,12 +60,12 @@ load_absmaps <- function(statisticalArea,
 
   if (download) {
 
-    this_message <- paste0("Downloading and processing your ", statisticalArea,
+    this_message <- paste0("Downloading and processing your ", area,
                            year, " sf object")
 
     print(this_message)
 
-    download_absmaps(statisticalArea,
+    download_absmaps(area,
                      year = year,
                      saveDirectory = saveDirectory,
                      mapCompression = mapCompression,
@@ -73,7 +73,7 @@ load_absmaps <- function(statisticalArea,
 
     this_message <- paste0(
       "Download and processing complete.",
-      "Reading your ", statisticalArea, year,
+      "Reading your ", area, year,
       " sf object")
 
       print(this_message)

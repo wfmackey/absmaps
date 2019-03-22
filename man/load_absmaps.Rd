@@ -4,11 +4,11 @@
 \alias{load_absmaps}
 \title{Download and load ABS ASGS shapefile data, compress and save as an \code{sf} object.}
 \usage{
-load_absmaps(statisticalArea, year = 2016, saveDirectory = ".",
-  download = TRUE, mapCompression = 0.1, removeSourceFiles = TRUE)
+load_absmaps(area, year = 2016, saveDirectory = ".", download = TRUE,
+  mapCompression = 0.1, removeSourceFiles = TRUE)
 }
 \arguments{
-\item{statisticalArea}{The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".}
+\item{area}{The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".}
 
 \item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
