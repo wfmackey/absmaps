@@ -20,7 +20,7 @@ load_absmaps <- function(statisticalArea,
 
   # Check area length
   if (length(statisticalArea) > 1) {
-    stop(paste("Sorry, you can't load more than one file at a time.",
+    stop(paste("Sorry, you can't _load_ more than one file at a time.",
                "But you can _download_ more than one at a time",
                "using `download_abs()`"))
   }
@@ -34,20 +34,14 @@ load_absmaps <- function(statisticalArea,
                "is outside that range."))
   }}
 
-  # Retrieve pre-loaded data if it is the same:
-  if (!download && mapCompression == 0.1) {
-    return(
-      get(paste0(statisticalArea, year))
-      )
-  }
 
-  # If the request is different OR download is specified:
+  # If download is specified:
   objectpath <- paste0(saveDirectory,
                        "/absmaps/",
                        statisticalArea, year, "/",
                        statisticalArea, year, ".rds")
 
-  if (!download && mapCompression != 0.1) {
+  if (!download) {
     this_message <- paste0(
       "Reading your ", statisticalArea, year,
       " sf object from ", objectpath)

@@ -5,9 +5,8 @@
 \title{Download ABS ASGS and/or ASGC shapefile data, compress and save
 as an \code{sf} object.}
 \arguments{
-\item{statisticalArea}{The statistical area you want to load. One of
-"sa1", "sa2, "sa3", "sa4", "gcc", "state". Multiple files can be combined
-by providing a vector, eg `c("sa1", "sa2", "state)`.}
+\item{area}{The area you want to download/convert/compress. One of
+"sa1", "sa2, "sa3", "sa4", "gcc", "state".}
 
 \item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
@@ -29,7 +28,6 @@ as an \code{sf} object.
 }
 \examples{
 \dontrun{
-download_absmaps("sa3", "myfile/data")
-download_absmaps(c("sa3", "gcc"), "myfile/data")
+download_absmaps("sa3", 2016)
 }
 }
