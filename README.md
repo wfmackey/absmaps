@@ -2,4 +2,4 @@
 
 
 # absmaps
-Download, compress and tidy ABS mapping data. See vignette for complete details.
+Download, compress and tidy ABS mapping data. (Full documentation coming -- for now, see details at the data-based sibling [absmapsdata](https://github.com/wfmackey/absmapsdata/blob/master/README.md)
