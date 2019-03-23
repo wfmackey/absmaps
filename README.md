@@ -1,3 +1,7 @@
+---
+title: "Download AGSS Maps From The ABS"
+---
+
 # absmaps
 
 The `absmaps` package exists to make it easier to download, compress and convert ABS shapefile data to `sf` objects to be used in R.
@@ -173,7 +177,7 @@ sa32016 %>%
 map
 ```
 
-![](img/README-unnamed-chunk-5-1.png)<!-- -->
+![](README-unnamed-chunk-5-1.png)<!-- -->
 
 The data also include centorids of each area, and we can add these
 points to the map with the `cent_lat` and `cent_long` variables using
@@ -190,7 +194,7 @@ sa32016 %>%
 map
 ```
 
-![](img/README-unnamed-chunk-6-1.png)<!-- -->
+![](README-unnamed-chunk-6-1.png)<!-- -->
 
 Cool. But, sidenote, this all looks a bit ugly. We can pretty it up
 using `ggplot` tweaks. See the comments on each line for its objective.
@@ -216,7 +220,7 @@ sa32016 %>%
 map
 ```
 
-![](img/README-unnamed-chunk-7-1.png)<!-- -->
+![](README-unnamed-chunk-7-1.png)<!-- -->
 
 ## Joining with other datasets
 
@@ -265,7 +269,7 @@ combined_data %>%
 map
 ```
 
-![](img/README-unnamed-chunk-10-1.png)<!-- -->
+![](README-unnamed-chunk-10-1.png)<!-- -->
 
 ## Why does this package exist?
 
