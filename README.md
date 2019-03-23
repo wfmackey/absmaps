@@ -1,5 +1,5 @@
 ---
-title: "Download AGSS Maps From The ABS"
+title: "Download AGSS Maps from the ABS"
 ---
 
 # absmaps
@@ -91,7 +91,7 @@ More details about ASGS structrues can be found on the [ABS website](http://www.
 * Indigenous regions 2016: area = `indigenous_regions`, year = `2016`
 
 
-**ASGS Non-ABS Structures**
+### ASGS Non-ABS Structures
 
 * Commonwealth Electoral Divisions 2018: area = `ced`, year = `2018`
 * State Electoral Divisions 2018: area = `sed`, year = `2018`
@@ -163,7 +163,6 @@ describing the area’s polygon. The object can be joined to a standard
 ### Creating maps with your `sf` object
 
 
-
 We do all this so we can create gorgeous maps. And with the `sf` object
 in hand, plotting a map via `ggplot` and `geom_sf` is simple.
 
@@ -177,7 +176,7 @@ sa32016 %>%
 map
 ```
 
-![](README-unnamed-chunk-5-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 The data also include centorids of each area, and we can add these
 points to the map with the `cent_lat` and `cent_long` variables using
@@ -194,7 +193,7 @@ sa32016 %>%
 map
 ```
 
-![](README-unnamed-chunk-6-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
 Cool. But, sidenote, this all looks a bit ugly. We can pretty it up
 using `ggplot` tweaks. See the comments on each line for its objective.
@@ -220,7 +219,7 @@ sa32016 %>%
 map
 ```
 
-![](README-unnamed-chunk-7-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-7-1.png)<!-- -->
 
 ## Joining with other datasets
 
@@ -269,7 +268,7 @@ combined_data %>%
 map
 ```
 
-![](README-unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/README-unnamed-chunk-10-1.png)<!-- -->
 
 ## Why does this package exist?
 

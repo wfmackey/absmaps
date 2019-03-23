@@ -9,4 +9,3 @@
 ^\.travis\.yml$
 ^play$
 ^ignore_on_build$
-png$
