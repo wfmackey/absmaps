@@ -1,7 +1,7 @@
 Package: absmaps
 Type: Package
 Title: A simple way to download, compress and read ABS ASGS data
-Version: 0.1.0
+Version: 0.2.0
 Author: person("Will", "Mackey", email = "william.mackey@grattaninstitute.edu.au",
                 role = c("aut", "cre"))
 Maintainer: Will Mackey <wfmackey@gmail.com>
