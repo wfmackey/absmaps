@@ -83,8 +83,6 @@ download_absmaps <- function(area,
   }
 
 
-  get_asgs_and_save <- function(x, year) {
-
   # URLs for ASGS shapefile data
 
     # 2016 ASGS
@@ -149,36 +147,36 @@ download_absmaps <- function(area,
 
 
     # Download
-    message(paste0("Downloading ", x, year, " data from abs.gov.au"))
+    message(paste0("Downloading ", area, year, " data from abs.gov.au"))
 
-    utils::download.file(get(paste0(x, year, "_url")),
-                         paste0(saveDirectory, "/", x, year, ".zip"),
+    utils::download.file(get(paste0(area, year, "_url")),
+                         paste0(saveDirectory, "/", area, year, ".zip"),
                          "auto")
 
     # Unzip and clean up
-    utils::unzip(paste0(saveDirectory, "/", x, year, ".zip"), exdir = paste0(saveDirectory, "/", x, year))
+    utils::unzip(paste0(saveDirectory, "/", area, year, ".zip"), exdir = paste0(saveDirectory, "/", area, year))
 
-    if (removeSourceFiles) file.remove(paste0(saveDirectory, "/", x, year, ".zip"))
+    if (removeSourceFiles) file.remove(paste0(saveDirectory, "/", area, year, ".zip"))
 
     # Read shapefile
-    if (!grepl("mesh_", x)) {
+    if (!grepl("mesh_", area)) {
 
       prefix <- dplyr::case_when(
-        x == "state" ~ "ste",
-        x == "gcc"   ~ "gccsa",
-        TRUE ~ x
+        area == "state" ~ "ste",
+        area == "gcc"   ~ "gccsa",
+        TRUE ~ area
       )
 
-      message(paste0("Reading ", x, year, " shapefile"))
-      shape <- sf::st_read(paste0(saveDirectory, "/", x, year, "/", toupper(prefix), "_", year, "_AUST.shp"))
+      message(paste0("Reading ", area, year, " shapefile"))
+      shape <- sf::st_read(paste0(saveDirectory, "/", area, year, "/", toupper(prefix), "_", year, "_AUST.shp"))
 
     }
 
-    if (grepl("mesh_", x)) {
-    sF_name <- gsub("mesh_([a-z]{2,5})([0-9]{4})", "MB_\\2_\\1", paste0(x, year)) %>% toupper()
+    if (grepl("mesh_", area)) {
+    sF_name <- gsub("mesh_([a-z]{2,5})([0-9]{4})", "MB_\\2_\\1", paste0(area, year)) %>% toupper()
 
-    message(paste0("Reading ", x, year, " shapefile"))
-    shape <- sf::st_read(paste0(saveDirectory, "/", x, year, "/", sF_name, ".shp"))
+    message(paste0("Reading ", area, year, " shapefile"))
+    shape <- sf::st_read(paste0(saveDirectory, "/", area, year, "/", sF_name, ".shp"))
 
     }
 
@@ -186,7 +184,7 @@ download_absmaps <- function(area,
 
     if (mapCompression != "off") {
     # Compress shapefile
-    message(paste0("Compressing ", x, year, " shapefile to ",
+    message(paste0("Compressing ", area, year, " shapefile to ",
                    mapCompression, " (", mapCompression * 100,
                    "% of original detail)"))
 
@@ -200,7 +198,7 @@ download_absmaps <- function(area,
 
     if (!dir.exists(data_loc)) dir.create(data_loc)
 
-    data_loc_sa <- paste0(data_loc, "/", x, year)
+    data_loc_sa <- paste0(data_loc, "/", area, year)
 
     if (!dir.exists(data_loc_sa)) dir.create(data_loc_sa)
 
@@ -238,9 +236,9 @@ download_absmaps <- function(area,
 
 
     # Write data
-    data_loc_sa <- paste0(data_loc_sa, "/", x, year, ".rds")
+    data_loc_sa <- paste0(data_loc_sa, "/", area, year, ".rds")
 
-    message(paste0("Writing ", x, year, " sf object to ", data_loc_sa))
+    message(paste0("Writing ", area, year, " sf object to ", data_loc_sa))
 
     readr::write_rds(shape, data_loc_sa)
 
@@ -248,21 +246,12 @@ download_absmaps <- function(area,
 
     if(removeSourceFiles) {
       message("Removing source files")
-      unlink(paste0(saveDirectory, "/", x, year), recursive = TRUE)
+      unlink(paste0(saveDirectory, "/", area, year), recursive = TRUE)
       message("Done")
     }
 
-    message(paste0(x, year, ".rds has been downloaded, cleaned and stored in ",
+    message(paste0(area, year, ".rds has been downloaded, cleaned and stored in ",
                    data_loc_sa))
-
-
-
-  }
-
-  # Apply get_asgs_and_save to each sa and year
-  purrr::map2(area,
-             year,
-             .f = get_asgs_and_save)
 
 
 }
