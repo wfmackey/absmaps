@@ -10,8 +10,7 @@
 #' area) 
 #' @param year The year of the ASGS data. Defaults to 2016, but 2011 will
 #' be useful for older data.
-#' @param saveDirectory The path to which your map data is saved. Default is
-#' the current working directory.
+#' @param saveDirectory The path to which your map data is saved.
 #' @param mapCompression The compression level of your map data. Default
 #' is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
 #' compression leads to greater map file size with, in most cases, little visual benefit.
@@ -28,8 +27,8 @@
 #' @importFrom purrr map2
 #'
 #' @examples
-#' \dontrun{
-#' download_absmaps("sa3", 2016)
+#' \dontrun{ 
+#' download_absmaps("state", 2016, saveDirectory = "data")
 #' }
 #' @export
 
@@ -39,7 +38,7 @@ globalVariables(c("X", "Y"))
 
 download_absmaps <- function(area,
                              year = 2016,
-                             saveDirectory = ".",
+                             saveDirectory,
                              mapCompression = .1,
                              removeSourceFiles = TRUE) {
 

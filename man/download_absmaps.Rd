@@ -15,8 +15,7 @@ area)}
 \item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
 
-\item{saveDirectory}{The path to which your map data is saved. Default is
-the current working directory.}
+\item{saveDirectory}{The path to which your map data is saved.}
 
 \item{mapCompression}{The compression level of your map data. Default
 is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
@@ -31,7 +30,7 @@ Download ABS ASGS shapefile data, compress and save
 as an \code{sf} object.
 }
 \examples{
-\dontrun{
-download_absmaps("sa3", 2016)
+\dontrun{ 
+download_absmaps("state", 2016, tempdir())
 }
 }
