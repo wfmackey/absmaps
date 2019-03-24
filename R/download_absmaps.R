@@ -1,4 +1,4 @@
-#' Download ABS ASGS and/or ASGC shapefile data, compress and save
+#' Download ABS ASGS shapefile data, compress and save
 #' as an \code{sf} object.
 #'
 #' @name download_absmaps
