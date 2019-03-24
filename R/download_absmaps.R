@@ -2,8 +2,12 @@
 #' as an \code{sf} object.
 #'
 #' @name download_absmaps
-#' @param area The area you want to download/convert/compress. One of
-#' "sa1", "sa2, "sa3", "sa4", "gcc", "state".
+#' @param area The area you want to download/convert/compress. One of:
+#' "sa1", "sa2, "sa3", "sa4", "gcc", "state", "ra" (remoteness area),
+#' "mesh_[STATE]" (eg mesh_nsw, mesh_tas, mesh_wa), "indigenous_locations", 
+#' "indigenous_area", "indigenous_regions", "ced" (Commonwealth electoral 
+#' district), "sed" (State electoral district), "lga" (local government 
+#' area) 
 #' @param year The year of the ASGS data. Defaults to 2016, but 2011 will
 #' be useful for older data.
 #' @param saveDirectory The path to which your map data is saved. Default is
