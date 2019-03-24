@@ -38,6 +38,6 @@ Download and load ABS ASGS shapefile data, compress and save as an \code{sf} obj
 }
 \examples{
 \dontrun{
-states <- load_absmaps("state", 2016, tempdir())
+staes <- load_absmaps("state", 2016, saveDirectory = "data")
 }
 }

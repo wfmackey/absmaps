@@ -31,6 +31,6 @@ as an \code{sf} object.
 }
 \examples{
 \dontrun{ 
-download_absmaps("state", 2016, tempdir())
+download_absmaps("state", 2016, saveDirectory = "data")
 }
 }
