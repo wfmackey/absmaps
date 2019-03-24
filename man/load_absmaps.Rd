@@ -8,7 +8,12 @@ load_absmaps(area, year = 2016, saveDirectory = ".", download = TRUE,
   mapCompression = 0.1, removeSourceFiles = TRUE)
 }
 \arguments{
-\item{area}{The statistical area you want to load. One of: "sa1", "sa2, "sa3", "sa4", "gcc", "state".}
+\item{area}{The area you want to download/convert/compress. One of:
+"sa1", "sa2, "sa3", "sa4", "gcc", "state", "ra" (remoteness area),
+"mesh_[STATE]" (eg mesh_nsw, mesh_tas, mesh_wa), "indigenous_locations", 
+"indigenous_area", "indigenous_regions", "ced" (Commonwealth electoral 
+district), "sed" (State electoral district), "lga" (local government 
+area)}
 
 \item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
@@ -16,7 +21,7 @@ be useful for older data.}
 \item{saveDirectory}{The path to which your map data is saved. Default is
 the current working directory.}
 
-\item{download}{Download ASGS/ASGC data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.}
+\item{download}{Download ASGS data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.}
 
 \item{mapCompression}{The compression level of your map data. Default
 is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher

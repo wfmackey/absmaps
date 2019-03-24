@@ -2,11 +2,15 @@
 % Please edit documentation in R/download_absmaps.R
 \name{download_absmaps}
 \alias{download_absmaps}
-\title{Download ABS ASGS and/or ASGC shapefile data, compress and save
+\title{Download ABS ASGS shapefile data, compress and save
 as an \code{sf} object.}
 \arguments{
-\item{area}{The area you want to download/convert/compress. One of
-"sa1", "sa2, "sa3", "sa4", "gcc", "state".}
+\item{area}{The area you want to download/convert/compress. One of:
+"sa1", "sa2, "sa3", "sa4", "gcc", "state", "ra" (remoteness area),
+"mesh_[STATE]" (eg mesh_nsw, mesh_tas, mesh_wa), "indigenous_locations", 
+"indigenous_area", "indigenous_regions", "ced" (Commonwealth electoral 
+district), "sed" (State electoral district), "lga" (local government 
+area)}
 
 \item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
@@ -23,7 +27,7 @@ Map compression can be set to "off".}
 compression. Defaults to TRUE.}
 }
 \description{
-Download ABS ASGS and/or ASGC shapefile data, compress and save
+Download ABS ASGS shapefile data, compress and save
 as an \code{sf} object.
 }
 \examples{
