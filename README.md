@@ -297,16 +297,17 @@ blogs](https://www.neonscience.org/dc-open-shapefiles-r).
 
 ## How does this package do the-things-it-does
 
-The `absmaps` package simple holds compressed and easy to use data
-(`sf` objects) for you use.
+The `absmaps` package uses four key functions to do-the-things-it-does:
 
-It is a data-only-based sibling of `absmaps`, which holds functionality
-to download more shapefile data from the ABS and compress it to a level
-you desire. However, this comes at a cost: the mapping software that
-`absmaps` is built on can be a bit fiddly to install.
+*  `utils::download.file` to download shapefile data from the ABS.
+*  `sf::st_read` to read the shapefile into an `sf` object.
+*  `rmapshaper::ms_simplify` to nicely compress the `sf` object.
+*  `readr::write_rds` to write, and `readr::read_rds` to read our nice `sf` objects.
 
-If you would like to do these things, please feel free to install
-`absmaps`.
+There are a bunch of other fiddley-things on top of that, but those four steps are the 'workhorse' functions. A big thanks to people who built them.
+
+If you're interested, check out `load_absmaps.R` code in the `R/` file. And, of course, if you have a suggestion to improve, please do let me know via an issue at https://github.com/wfmackey/absmaps.
+
 
 ## I want to complain about this package
 
