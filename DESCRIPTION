@@ -1,6 +1,6 @@
 Package: absmaps
 Type: Package
-Title: Download AGSS Maps from the ABS
+Title: Download ASGS Maps from the ABS
 Version: 0.2.0
 Authors@R: person("Will", "Mackey", 
                   role = c("aut", "cre"), 

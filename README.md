@@ -1,5 +1,5 @@
 ---
-title: "Download AGSS Maps from the ABS"
+title: "Download ASGS Maps from the ABS"
 ---
 
 # absmaps
