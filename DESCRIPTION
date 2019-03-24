@@ -6,7 +6,7 @@ Authors@R: person("Will", "Mackey",
                   role = c("aut", "cre"), 
                   email = "wfmackey@gmail.com")
 License: MIT + file LICENSE
-Description: Download, convert and compress (as desired) spatial data from the Australian Statistical Geography Standard (ASGS). The spatial data can then be loaded as an easy-to-use 'sf' object and combined with information to be mapped using 'geom_sf()' from 'ggplot2' .
+Description: Download, convert and compress (as desired) spatial data from the Australian Statistical Geography Standard (ASGS). The spatial data can then be loaded as an easy-to-use 'sf' object and combined with information to be mapped using 'geom_sf()' from 'ggplot2'.
 Depends: R (>= 3.1)
 Imports:
     readr,
