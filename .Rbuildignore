@@ -1,3 +1,5 @@
+^CRAN-RELEASE$
+
 ^Meta$
 ^doc$
 ^.*\.Rproj$
@@ -9,4 +11,4 @@
 ^\.travis\.yml$
 ^play$
 ^ignore_on_build$
-cran-comments.md
+^cran-comments.md$
