@@ -14,7 +14,28 @@ There was 1 NOTE:
 
     New submission
 
+## CRAN reviewer comments
+
+_Review by Swetlana Herbrandt_
+
+DESCRIPTION issues have been addressed
+
+Re: usage of the `download_absmaps` function:
+
+    We also get:
+
+    download_absmaps("state", 2016, saveDirectory = "data")
+    Downloading state2016 data from abs.gov.au
+    Error in utils::download.file(get(paste0(area, year, "_url")), 
+    paste0(saveDirectory,  :
+       cannot open destfile 'data/state2016.zip', reason 'No such file or 
+    directory'
+
+    Any ideas?
+
+The directory specified did not exist. But, I agree that this could be made more clear for the user. The .Rd note has been updated to '...an existing directory...' and the function now gives a clear stop message if the directory isn't found: `"Your save directory doesn't exist!"`
+
+
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package
-
