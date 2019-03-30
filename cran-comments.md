@@ -20,7 +20,9 @@ _Review by Swetlana Herbrandt_
 
 DESCRIPTION issues have been addressed
 
-Re: usage of the `download_absmaps` function:
+**Re:** usage of the `download_absmaps` function:
+
+CRAN comment:
 
     We also get:
 
@@ -33,7 +35,7 @@ Re: usage of the `download_absmaps` function:
 
     Any ideas?
 
-The directory specified did not exist. But, I agree that this could be made more clear for the user. The .Rd note has been updated to '...an existing directory...' and the function now gives a clear stop message if the directory isn't found: `"Your save directory doesn't exist!"`
+The `saveDirectory` that was specified, `data`, did not exist in the user's system. But, I agree that this could be made more clear for the user. The `.Rd` note has been updated to `'...an existing directory...'` and the function now gives a clear stop message if the directory isn't found: `"Your save directory doesn't exist!"`
 
 
 
