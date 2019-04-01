@@ -31,7 +31,7 @@ Download ABS ASGS shapefile data, compress and save
 as an \code{sf} object.
 }
 \examples{
-\dontrun{
-download_absmaps("sa3", 2016)
+\dontrun{ 
+download_absmaps("state", 2016, saveDirectory = "data")
 }
 }

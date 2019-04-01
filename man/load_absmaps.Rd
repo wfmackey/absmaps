@@ -4,7 +4,7 @@
 \alias{load_absmaps}
 \title{Download and load ABS ASGS shapefile data, compress and save as an \code{sf} object.}
 \usage{
-load_absmaps(area, year = 2016, saveDirectory = ".", download = TRUE,
+load_absmaps(area, year = 2016, saveDirectory, download = TRUE,
   mapCompression = 0.1, removeSourceFiles = TRUE)
 }
 \arguments{
@@ -39,6 +39,6 @@ Download and load ABS ASGS shapefile data, compress and save as an \code{sf} obj
 }
 \examples{
 \dontrun{
-sa4_sf <- load_absmaps("sa4", "myfile/data")
+staes <- load_absmaps("state", 2016, saveDirectory = "data")
 }
 }

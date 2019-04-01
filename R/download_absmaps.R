@@ -28,8 +28,8 @@
 #' @importFrom purrr map2
 #'
 #' @examples
-#' \dontrun{
-#' download_absmaps("sa3", 2016)
+#' \dontrun{ 
+#' download_absmaps("state", 2016, saveDirectory = "data")
 #' }
 #' @export
 
@@ -39,7 +39,7 @@ globalVariables(c("X", "Y"))
 
 download_absmaps <- function(area,
                              year = 2016,
-                             saveDirectory = ".",
+                             saveDirectory,
                              mapCompression = .1,
                              removeSourceFiles = TRUE) {
 

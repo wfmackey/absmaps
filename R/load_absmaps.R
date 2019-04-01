@@ -5,13 +5,13 @@
 #' @return A \code{sf} object containing statistical area name, number and geometry; the size of the area; and higher-level statistical areas (eg the state and gcc of an sa2).
 #' @examples
 #' \dontrun{
-#' sa4_sf <- load_absmaps("sa4", "myfile/data")
+#' staes <- load_absmaps("state", 2016, saveDirectory = "data")
 #' }
 #' @export
 
 load_absmaps <- function(area,
                          year = 2016,
-                         saveDirectory = ".",
+                         saveDirectory,
                          download = TRUE,
                          mapCompression = .1,
                          removeSourceFiles = TRUE
@@ -23,9 +23,7 @@ load_absmaps <- function(area,
   
   # Check area length
   if (length(area) > 1) {
-    stop(paste("Sorry, you can't _load_ more than one file at a time.",
-               "But you can _download_ more than one at a time",
-               "using `download_abs()`"))
+    stop(paste("Sorry, you can't _load_ more than one file at a time."))
   }
 
   # Check map compression
@@ -39,8 +37,7 @@ load_absmaps <- function(area,
 
 
   # If download is specified:
-  objectpath <- paste0(saveDirectory,
-                       "/absmaps/",
+  objectpath <- paste0(saveDirectory, "/absmaps/",
                        area, year, "/",
                        area, year, ".rds")
 
