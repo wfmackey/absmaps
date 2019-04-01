@@ -17,6 +17,10 @@ load_absmaps <- function(area,
                          removeSourceFiles = TRUE
                          ) {
 
+  # Check if the directory exists
+  if (!dir.exists(saveDirectory)) stop("Your save directory doesn't exist!")
+  
+  
   # Check area length
   if (length(area) > 1) {
     stop(paste("Sorry, you can't _load_ more than one file at a time."))

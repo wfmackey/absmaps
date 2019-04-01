@@ -1,12 +1,12 @@
 Package: absmaps
 Type: Package
-Title: Download ASGS Maps from the ABS
-Version: 0.2.0
+Title: Download and Use Maps Data from the Australia Bureau of Statistics
+Version: 0.2.1
 Authors@R: person("Will", "Mackey", 
                   role = c("aut", "cre"), 
                   email = "wfmackey@gmail.com")
 License: MIT + file LICENSE
-Description: Download, convert and compress (as desired) spatial data from the Australian Statistical Geography Standard (ASGS). The spatial data can then be loaded as an easy-to-use 'sf' object and combined with information to be mapped using 'geom_sf()' from 'ggplot2'.
+Description: Download, convert and compress (as desired) spatial data from the Australian Statistical Geography Standard (ASGS). The spatial data can then be loaded as an easy-to-use 'sf' object and combined with information and mapped using the 'tidyverse' set of packages. This package downloads shapefile data from a number of <https://www.abs.gov.au> catalogues. 
 Depends: R (>= 3.1)
 Imports:
     readr,

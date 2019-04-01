@@ -10,7 +10,8 @@
 #' area) 
 #' @param year The year of the ASGS data. Defaults to 2016, but 2011 will
 #' be useful for older data.
-#' @param saveDirectory The path to which your map data is saved.
+#' @param saveDirectory The existing path to which your map data is saved. Default is
+#' the current working directory.
 #' @param mapCompression The compression level of your map data. Default
 #' is 0.1 -- 10 per cent of original detail -- which makes clear, detailed maps. Higher
 #' compression leads to greater map file size with, in most cases, little visual benefit.
@@ -42,6 +43,9 @@ download_absmaps <- function(area,
                              mapCompression = .1,
                              removeSourceFiles = TRUE) {
 
+  # Check if the directory exists
+  if (!dir.exists(saveDirectory)) stop("Your save directory doesn't exist!")
+  
   # Check if there is internet connection
   if(!curl::has_internet()) {
     stop("Oop -- you are not connected to the internet to download ABS map data.")
