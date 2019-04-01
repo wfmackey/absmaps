@@ -167,6 +167,7 @@ download_absmaps <- function(area,
       prefix <- dplyr::case_when(
         area == "state" ~ "ste",
         area == "gcc"   ~ "gccsa",
+        area == "postal"   ~ "poa",
         TRUE ~ area
       )
 
