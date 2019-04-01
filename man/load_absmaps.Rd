@@ -18,7 +18,8 @@ area)}
 \item{year}{The year of the ASGS data. Defaults to 2016, but 2011 will
 be useful for older data.}
 
-\item{saveDirectory}{The path to which your map data is saved.}
+\item{saveDirectory}{The existing path to which your map data is saved. Default is
+the current working directory.}
 
 \item{download}{Download ASGS data from the ABS. Default is TRUE. Set to FALSE if data are already downloaded and compressed.}
 
