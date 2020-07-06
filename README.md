@@ -1,18 +1,18 @@
----
-title: "Download ASGS Maps from the ABS"
----
 
-# absmaps
+# absmaps: Download ASGS Maps from the ABS
 
 The `absmaps` package exists to make it easier to download, compress and convert ABS shapefile data to `sf` objects to be used in R.
+
+**NOTE** that almost all ABS ASGS shapefiles have been pre-processed and stored for easy retrieval in the `absmapsdata` package, found here: https://github.com/wfmackey/absmapsdata
+
 
 ## Installation
 
 You can install `absmaps` from github with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("wfmackey/absmaps")
+# install.packages("remotes")
+remotes::install_github("wfmackey/absmaps")
 ```
 
 
@@ -110,7 +110,7 @@ The `absmaps` package uses the `load_absmaps` to download and load a particular 
 
 library(absmaps)
 
-mapdata1 <- load_absmaps(area = "sa3", year = 2011)
+mapdata1 <- load_absmaps(area = "sa3", year = 2011, saveDirectory = ".")
 
 glimpse(mapdata1)
 #> Observations: 351
@@ -132,7 +132,7 @@ glimpse(mapdata1)
 Or
 
 ``` r
-mapdata2 <- load_absmaps(area = "sa2", year = 2016)
+mapdata2 <- load_absmaps(area = "sa2", year = 2016, saveDirectory = ".")
 
 glimpse(mapdata2)
 #> Observations: 2,310
