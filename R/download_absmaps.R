@@ -158,7 +158,8 @@ download_absmaps <- function(area,
 
     utils::download.file(get(paste0(area, year, "_url")),
                          paste0(saveDirectory, "/", area, year, ".zip"),
-                         "auto")
+                         "auto", 
+                         mode = "wb")
 
     # Unzip and clean up
     utils::unzip(paste0(saveDirectory, "/", area, year, ".zip"), exdir = paste0(saveDirectory, "/", area, year))
